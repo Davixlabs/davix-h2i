@@ -1,0 +1,172 @@
+/* ================================================================
+   DAVIX DROPDOWN KIT — shared, cross-plugin
+   ================================================================
+   Canonical source: davix-reply/assets/css/shared/davix-admin-ui.css,
+   Section T ("UNIFIED SELECT DROPDOWNS"). Same visual design as Reply's
+   own `.davix-ar-select-*` rules there, byte-for-byte, under DIFFERENT
+   class names (`.dvs-select-*`) and without the `.davix-admin` ancestor
+   scope.
+
+   Both changes exist for the same reason: portability without collision.
+   - No `.davix-admin` ancestor scope, because every rule already carries
+     `!important` (that's what made the ancestor scope non-essential for
+     specificity in Reply's original), so the kit works under whatever
+     root wrapper class the consuming plugin uses.
+   - Different class names, because Reply's own JS (davix-reply-admin.js)
+     binds its open/close/select handlers as DOCUMENT-level delegated
+     jQuery listeners keyed by `.davix-ar-select-*` class names — those
+     match ANY element with that class anywhere on the page, not just ones
+     Reply's own code created. Reusing them here made Reply's delegated
+     handler and this kit's own handler both react to the same click and
+     immediately undo each other (confirmed live). davix-dropdown-kit.js
+     uses `.dvs-select-*` for exactly this reason — this stylesheet has to
+     match.
+
+   DO NOT edit the visual design here without also updating Reply's own
+   copy in davix-admin-ui.css — they must stay identical. Reply's own
+   admin pages keep using ITS copy (own file, own jQuery enhanceSelect()
+   in davix-reply-admin.js, own `.davix-ar-select-*` classes) untouched;
+   every other plugin, and Reply's own dynamically-AJAX-inserted
+   dynamic-parameter fields, use THIS file plus davix-dropdown-kit.js.
+
+   Colors come entirely from each plugin's own --davix-* tokens
+   (tokens.css) — this file never hardcodes a color, which is also what
+   lets davix-h2i reuse it unmodified: H2I remaps --davix-blue /
+   --davix-border-blue / --davix-shadow-glow-blue to its pink tokens
+   once, ecosystem-wide, in its own tokens file — see
+   davix-h2i/assets/css/davix-ui-core.css.
+   ================================================================ */
+
+.dvs-select-wrap {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+}
+/* Visually-hidden, not display:none — the native <select> stays the
+   real, focusable, functional form control; only its own default
+   rendering is hidden. */
+.dvs-select-native {
+  position: absolute !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 1px !important;
+  height: 1px !important;
+  min-height: 1px !important;
+  max-height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.dvs-select-trigger {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  width: 100% !important;
+  padding: 8px 12px !important;
+  background: var(--dvs-surface-3) !important;
+  border: 1px solid var(--dvs-border-strong) !important;
+  border-radius: var(--dvs-radius) !important;
+  color: var(--dvs-text-primary) !important;
+  font-size: 14px !important;
+  text-align: left !important;
+  cursor: pointer !important;
+}
+.dvs-select-trigger:hover {
+  border-color: var(--dvs-border-blue) !important;
+}
+.dvs-select-trigger:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+.dvs-select-trigger:disabled:hover {
+  border-color: var(--dvs-border-strong) !important;
+}
+.dvs-select-trigger:focus-visible {
+  outline: 2px solid var(--dvs-blue) !important;
+  outline-offset: 1px !important;
+}
+.dvs-select-trigger .dashicons {
+  flex-shrink: 0 !important;
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  color: var(--dvs-text-muted) !important;
+}
+.dvs-select-trigger[aria-expanded="true"] .dashicons {
+  transform: rotate(180deg) !important;
+}
+.dvs-select-trigger-label {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+.dvs-select-menu[hidden] {
+  display: none !important;
+}
+/* position: fixed so the popover escapes any `overflow: hidden`
+   ancestor card instead of being clipped by it. box-sizing:border-box
+   so the JS-set width (matched to the trigger) isn't pushed wider by
+   this rule's own padding/border. */
+.dvs-select-menu:not([hidden]) {
+  position: fixed !important;
+  z-index: 200000 !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  /* enhanceOne()'s positionSelectMenu() sets this custom property when it
+     flips the menu upward (not enough room below the trigger) to cap it to
+     the actual space available above instead of overflowing past the top
+     of the viewport too. Unset (the normal, opens-downward case) falls
+     back to the usual budget. */
+  max-height: var(--dvs-select-menu-max-height, 280px) !important;
+  overflow-y: auto !important;
+  margin: 0 !important;
+  padding: 6px !important;
+  list-style: none !important;
+  background: var(--dvs-surface-3) !important;
+  border: 1px solid var(--dvs-border-strong) !important;
+  border-radius: var(--dvs-radius) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4) !important;
+}
+.dvs-select-option {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 10px !important;
+  border-radius: calc(var(--dvs-radius) - 2px) !important;
+  color: var(--dvs-text-primary) !important;
+  font-size: 13px !important;
+  cursor: pointer !important;
+  outline: none !important;
+}
+.dvs-select-option:hover,
+.dvs-select-option:focus-visible {
+  background: rgba(77, 163, 255, 0.10) !important;
+}
+.dvs-select-option[aria-selected="true"] {
+  background: rgba(77, 163, 255, 0.16) !important;
+  color: var(--dvs-blue-light, var(--dvs-blue)) !important;
+  font-weight: 600 !important;
+}
+.dvs-select-option.is-disabled {
+  color: var(--dvs-text-muted) !important;
+  cursor: not-allowed !important;
+}
+.dvs-select-menu {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(77, 163, 255, 0.20) transparent;
+}
+.dvs-select-menu::-webkit-scrollbar { width: 6px; }
+.dvs-select-menu::-webkit-scrollbar-track { background: transparent; }
+.dvs-select-menu::-webkit-scrollbar-thumb {
+  background: rgba(77, 163, 255, 0.20);
+  border-radius: 3px;
+}
+.dvs-select-menu::-webkit-scrollbar-thumb:hover {
+  background: rgba(77, 163, 255, 0.35);
+}

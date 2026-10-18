@@ -1,0 +1,420 @@
+/* ── WP CANVAS RESET ──────────────────────────────────────────── */
+body.davix-h2i-admin-page {
+  background: var(--dvs-bg-dark) !important;
+}
+body.davix-h2i-admin-page #wpwrap {
+  background: var(--dvs-bg-dark);
+  min-height: calc(100vh - 32px);
+}
+body.davix-h2i-admin-page #wpcontent,
+body.davix-h2i-admin-page #wpbody,
+body.davix-h2i-admin-page #wpbody-content {
+  background: var(--dvs-bg-dark);
+}
+body.davix-h2i-admin-page #wpcontent {
+  min-height: calc(100vh - 32px);
+  padding-left: 0 !important;
+}
+body.davix-h2i-admin-page #wpbody-content {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+body.davix-h2i-admin-page .wrap {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+body.davix-h2i-admin-page #wpfooter {
+  display: none !important;
+}
+body.davix-h2i-admin-page .wrap > h1:first-child,
+body.davix-h2i-admin-page .wrap > h1.wp-heading-inline {
+  display: none !important;
+}
+
+/* ── APP SHELL ────────────────────────────────────────────────── */
+.davix-admin {
+  margin: 0 !important;
+  width: 100%;
+  min-height: var(--dvs-shell-min-h, calc(100vh - 32px));
+  background: var(--dvs-bg-dark);
+  display: flex;
+  flex-direction: column;
+  color: var(--dvs-text-primary);
+  font-family: var(--dvs-font);
+}
+
+/* ── HEADER ───────────────────────────────────────────────────── */
+.davix-admin-header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--dvs-sp-4);
+  min-height: var(--dvs-header-height);
+  padding: var(--dvs-sp-2) var(--dvs-sp-6);
+  background: var(--dvs-black);
+  border-bottom: 1px solid rgba(77, 163, 255, 0.10);
+  z-index: 50;
+}
+.davix-admin-header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--dvs-sp-3);
+  min-width: 0;
+}
+.davix-admin-header-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--dvs-radius);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.davix-admin-header-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.davix-admin-header-title {
+  font-size: var(--dvs-text-lg);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.davix-admin-header-title span {
+  color: var(--dvs-blue);
+}
+.davix-admin-header-subtitle {
+  font-size: 11px;
+  color: rgba(179, 215, 255, 0.45);
+  line-height: 1.3;
+  max-width: 420px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.davix-admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--dvs-sp-3);
+  flex-shrink: 0;
+}
+.davix-admin-header-link {
+  font-size: var(--dvs-text-sm);
+  color: var(--dvs-text-secondary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border-radius: var(--dvs-radius-sm);
+  transition: all var(--dvs-ease);
+}
+.davix-admin-header-link:hover {
+  color: var(--dvs-pink);
+  background: rgba(255, 100, 180, 0.06);
+  text-decoration: none;
+}
+.davix-admin-header-link .dashicons {
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
+}
+.davix-admin-header-link--icon-only {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  justify-content: center;
+}
+.davix-admin-header-link--icon-only .dashicons {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+.davix-admin-header-link--icon-only:focus-visible {
+  outline: 2px solid var(--dvs-blue);
+  outline-offset: 1px;
+}
+
+/* ── BODY (sidebar + content row) ──────────────────────────────── */
+.davix-admin-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+/* ── SIDEBAR ──────────────────────────────────────────────────── */
+.davix-admin-sidebar {
+  flex: 0 0 var(--dvs-sidebar-width);
+  width: var(--dvs-sidebar-width);
+  background: var(--dvs-black);
+  border-right: 1px solid rgba(77, 163, 255, 0.08);
+  align-self: stretch;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: flex-basis 0.2s ease, width 0.2s ease;
+}
+.davix-admin-sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--dvs-sp-2) var(--dvs-sp-3);
+  border-bottom: 1px solid rgba(77, 163, 255, 0.06);
+  flex-shrink: 0;
+}
+.davix-admin-sidebar-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--dvs-radius-sm);
+  background: transparent;
+  color: var(--dvs-text-muted);
+  cursor: pointer;
+  transition: all var(--dvs-ease);
+}
+.davix-admin-sidebar-toggle:hover {
+  color: var(--dvs-pink);
+  background: rgba(255, 100, 180, 0.06);
+  border-color: rgba(255, 100, 180, 0.15);
+}
+.davix-admin-sidebar-toggle:focus-visible {
+  outline: 2px solid var(--dvs-blue);
+  outline-offset: 1px;
+}
+.davix-admin-sidebar-toggle .dashicons {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+.davix-admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--dvs-sp-3) var(--dvs-sp-2);
+  flex: 1;
+  list-style: none;
+  margin: 0;
+}
+.davix-admin-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--dvs-sp-3);
+  padding: 10px 14px;
+  border-radius: var(--dvs-radius);
+  border-left: 3px solid transparent;
+  color: var(--dvs-text-secondary);
+  font-size: var(--dvs-text-md);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--dvs-ease);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.davix-admin-nav-item:hover {
+  color: #e2e8f0;
+  background: rgba(255, 100, 180, 0.03);
+  text-decoration: none;
+}
+.davix-admin-nav-item.is-active {
+  color: var(--dvs-blue);
+  background: linear-gradient(135deg, rgba(77, 163, 255, 0.08), rgba(255, 100, 180, 0.03));
+  border-left-color: var(--dvs-blue);
+  font-weight: 600;
+}
+.davix-admin-nav-item .dashicons {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+.davix-admin-nav-item:hover .dashicons,
+.davix-admin-nav-item.is-active .dashicons {
+  opacity: 1;
+}
+.davix-admin-nav-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity 0.15s ease;
+}
+
+/* Collapsed Sidebar */
+.davix-admin-sidebar.is-collapsed {
+  flex-basis: 72px;
+  min-width: 72px;
+  width: 72px;
+}
+.davix-admin-sidebar.is-collapsed .davix-admin-sidebar-head {
+  justify-content: center;
+  padding: 10px 0;
+}
+.davix-admin-sidebar.is-collapsed .davix-admin-sidebar-toggle {
+  margin: 0 auto;
+}
+.davix-admin-sidebar.is-collapsed .davix-admin-nav {
+  padding: 14px 8px;
+  align-items: center;
+}
+.davix-admin-sidebar.is-collapsed .davix-admin-nav-label {
+  display: none;
+}
+.davix-admin-sidebar.is-collapsed .davix-admin-nav-item {
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  justify-content: center;
+  padding: 0;
+  border-radius: 12px;
+  gap: 0;
+  border-left: 0;
+}
+.davix-admin-sidebar.is-collapsed .davix-admin-nav-item.is-active {
+  box-shadow: 0 0 0 2px rgba(77, 163, 255, 0.20), 0 4px 12px rgba(0, 111, 230, 0.10);
+}
+.davix-admin-sidebar.is-collapsed .davix-admin-sidebar-toggle .dashicons {
+  transform: rotate(180deg);
+}
+
+/* ── MAIN CONTENT ─────────────────────────────────────────────── */
+.davix-admin-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: var(--dvs-sp-5) var(--dvs-sp-6);
+  background: var(--dvs-bg-dark);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ── PRIMARY TAB BAR ──────────────────────────────────────────── */
+.davix-engine-tab-bar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 0 0;
+  border-bottom: 1px solid var(--dvs-border);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.davix-engine-tab-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 16px;
+  font-size: var(--dvs-text-base);
+  font-weight: 500;
+  color: var(--dvs-text-secondary);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all var(--dvs-ease);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.davix-engine-tab-item:hover {
+  color: #e2e8f0;
+  text-decoration: none;
+}
+.davix-engine-tab-item.is-active {
+  color: var(--dvs-blue);
+  border-bottom-color: var(--dvs-blue);
+  font-weight: 600;
+}
+
+/* ── SUBTAB NAVIGATION ────────────────────────────────────────── */
+.davix-admin .nav-tab-wrapper {
+  background: transparent !important;
+  border-bottom: 1px solid var(--dvs-border) !important;
+  padding: 0 !important;
+  margin-bottom: 20px !important;
+}
+.davix-admin .nav-tab {
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-bottom: none !important;
+  color: var(--dvs-text-secondary) !important;
+  border-radius: var(--dvs-radius-sm) var(--dvs-radius-sm) 0 0 !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  transition: all var(--dvs-ease) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  padding: 8px 14px !important;
+}
+.davix-admin .nav-tab:hover {
+  color: var(--dvs-blue) !important;
+  background: rgba(77, 163, 255, 0.06) !important;
+  text-decoration: none !important;
+}
+.davix-admin .nav-tab-active,
+.davix-admin .nav-tab.nav-tab-active {
+  background: var(--dvs-surface-2) !important;
+  border-color: var(--dvs-border) var(--dvs-border) var(--dvs-surface-2) !important;
+  color: var(--dvs-blue) !important;
+  font-weight: 600 !important;
+}
+
+/* Tab/subtab panel visibility (settings-page mother-panel tabs: simple
+   show/hide block, the settings page itself scrolls with admin content). */
+.davix-h2i-tab-panel { display: none; }
+.davix-h2i-tab-panel.active { display: block; }
+.davix-h2i-subtab-panel { display: none; }
+.davix-h2i-subtab-panel.active { display: block; }
+
+/* Media Library drawer reuses the same .davix-h2i-tab-panel class name for
+   its Image/H2I/Tools sub-tabs, but — unlike the settings page — these must
+   be flex columns so their .davix-h2i-tab-content child can scroll inside
+   the fixed-height drawer body instead of growing it. Scoped to #davix-h2i-modal
+   so the settings-page rule above is untouched. Zero padding here — the
+   legacy media-modal.css `.davix-h2i-tab-panel{padding-top:16px}` is a
+   redundant duplicate of the drawer body's own inset (removed below); the
+   canonical section padding now lives on .davix-h2i-tab-section, matching
+   Creator's davix-offcanvas-body (0 padding) > davix-offcanvas-section
+   (padding:20px 24px) split exactly. */
+#davix-h2i-modal .davix-h2i-tab-panel {
+  display: none;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+}
+#davix-h2i-modal .davix-h2i-tab-panel.active {
+  display: flex;
+}
+/* The actual scroll container (equivalent to Creator's davix-offcanvas-body)
+   must have zero padding so its scrollbar sits flush at the drawer's outer
+   edge, not inset. */
+#davix-h2i-modal .davix-h2i-tab-content {
+  padding: 0;
+}
+/* The section wrapper inside each tab (equivalent to Creator's
+   davix-offcanvas-section) carries the only inset — content padding lives
+   here, one level inside the scroll container, never on the container itself. */
+#davix-h2i-modal .davix-h2i-tab-section {
+  padding: 20px 24px;
+}
+
+
+/* The white logo symbol, painted into WordPress' own menu icon box so it follows the menu colours (hover, current item). */
+#adminmenu li.toplevel_page_davix-h2i div.wp-menu-image:before {
+  content: "";
+  font-family: inherit;
+  background-color: currentColor;
+  width: 18px;
+  height: 18px;
+  padding: 8px 1px;
+  -webkit-mask: url("../../image/logo/davix-h2i-logo-monochrome-white-transparent.svg") center/contain no-repeat;
+  mask: url("../../image/logo/davix-h2i-logo-monochrome-white-transparent.svg") center/contain no-repeat;
+  -webkit-mask-origin: content-box;
+  mask-origin: content-box;
+}

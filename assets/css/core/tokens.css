@@ -1,0 +1,143 @@
+/* ================================================================
+   DAVIX UI CORE — Design System Foundation
+   Shared CSS custom properties and reusable components for all
+   Davix H2I admin screens.
+   Handle: davix-h2i-ui-core
+   ================================================================ */
+
+/* ── DESIGN TOKENS ────────────────────────────────────────────── */
+:root {
+  /* Brand Core */
+  --dvs-bg-dark:          #12151B;
+  --dvs-black:            #0b0d10;
+  --dvs-blue:             #4da3ff;
+  --dvs-blue-light:       #b3d7ff;
+  --dvs-blue-dark:        #006fe6;
+  --dvs-pink:             #ff64b4;
+  --dvs-pink-light:       #ffc9e5;
+  --dvs-pink-dark:        #fc0082;
+  --dvs-shadow-blue:      rgba(0, 111, 230, 0.67);
+  --dvs-shadow-pink:      rgba(252, 0, 130, 0.67);
+
+  /* Dark Surfaces */
+  --dvs-surface-1:        #161a22;
+  --dvs-surface-2:        #1a1f28;
+  --dvs-surface-3:        #1e242e;
+  --dvs-surface-4:        #242a36;
+  --dvs-surface-5:        #2a3140;
+
+  /* Text on Dark */
+  --dvs-text-primary:     #e4e8ee;
+  --dvs-text-secondary:   #9ca3af;
+  --dvs-text-muted:       #6b7280;
+  --dvs-text-heading:     #f1f4f8;
+  --dvs-text-link:        var(--dvs-blue);
+
+  /* Borders on Dark */
+  --dvs-border:           rgba(255, 255, 255, 0.08);
+  --dvs-border-strong:    rgba(255, 255, 255, 0.14);
+  --dvs-border-blue:      rgba(77, 163, 255, 0.20);
+  --dvs-border-pink:      rgba(255, 100, 180, 0.18);
+
+  /* Semantic Colors */
+  --dvs-success:          #22c55e;
+  --dvs-success-text:     #4ade80;
+  --dvs-success-soft:     rgba(34, 197, 94, 0.12);
+  --dvs-warning:          #f59e0b;
+  --dvs-warning-text:     #fbbf24;
+  --dvs-warning-soft:     rgba(245, 158, 11, 0.12);
+  --dvs-danger:           #ef4444;
+  --dvs-danger-text:      #f87171;
+  --dvs-danger-soft:      rgba(239, 68, 68, 0.12);
+  --dvs-info:             var(--dvs-blue);
+  --dvs-info-soft:        rgba(77, 163, 255, 0.10);
+
+  /* Radius */
+  --dvs-radius-xs:        4px;
+  --dvs-radius-sm:        6px;
+  --dvs-radius:           8px;
+  --dvs-radius-md:        10px;
+  --dvs-radius-lg:        14px;
+  --dvs-radius-xl:        18px;
+  --dvs-radius-full:      9999px;
+
+  /* Shadows */
+  --dvs-shadow-xs:        0 1px 2px rgba(0, 0, 0, 0.25);
+  --dvs-shadow-sm:        0 1px 3px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.15);
+  --dvs-shadow:           0 2px 8px rgba(0, 0, 0, 0.35), 0 6px 20px rgba(0, 0, 0, 0.15);
+  --dvs-shadow-md:        0 4px 16px rgba(0, 0, 0, 0.4);
+  --dvs-shadow-lg:        0 8px 32px rgba(0, 0, 0, 0.5);
+  --dvs-shadow-glow-blue: 0 0 0 2px rgba(77, 163, 255, 0.35);
+  --dvs-shadow-glow-pink: 0 0 0 2px rgba(255, 100, 180, 0.30);
+
+  /* Spacing */
+  --dvs-sp-1:   4px;
+  --dvs-sp-2:   8px;
+  --dvs-sp-3:   12px;
+  --dvs-sp-4:   16px;
+  --dvs-sp-5:   20px;
+  --dvs-sp-6:   24px;
+  --dvs-sp-8:   32px;
+  --dvs-sp-10:  40px;
+  --dvs-sp-12:  48px;
+
+  /* Typography */
+  --dvs-font:       -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --dvs-font-mono:  Consolas, Monaco, "Courier New", monospace;
+  --dvs-text-xs:    11px;
+  --dvs-text-sm:    12px;
+  --dvs-text-base:  13px;
+  --dvs-text-md:    14px;
+  --dvs-text-lg:    16px;
+  --dvs-text-xl:    18px;
+  --dvs-text-2xl:   22px;
+  --dvs-text-3xl:   28px;
+
+  /* Transitions */
+  --dvs-ease:       0.15s ease;
+  --dvs-ease-slow:  0.25s ease;
+  --dvs-ease-modal: 0.2s ease;
+
+  /* Z-Index
+     WordPress core's #wpadminbar sits at 99999. The WP media modal
+     frame (.media-modal / attachment-details dialog H2I's drawer opens
+     on top of) runs up to ~165001 — the same ceiling documented in
+     Davix Creator's own canonical off-canvas tokens ("media at
+     165000/165001"). Every Davix overlay must clear both, so these
+     start comfortably above 165001. */
+  --dvs-z-sticky:    20;
+  --dvs-z-dropdown:  30;
+  --dvs-z-overlay:   166800;
+  --dvs-z-modal:     166900;
+  --dvs-z-toast:     167000;
+  --dvs-z-fullscreen: 167100;
+
+  /* Layout */
+  --dvs-sidebar-width:  220px;
+  --dvs-header-height:  56px;
+  --dvs-content-max:    1400px;
+
+  /* Control heights */
+  --dvs-control-height: 36px;
+
+  /* Legacy --davix-h2i-* variables, relocated here from theme.css (deleted).
+     admin-settings.css, media-modal.css, and log-viewer.css have since been
+     fully migrated into this file and deleted too — kept as-is (not
+     renamed) since the migrated rules further down still reference them
+     by these exact names. */
+  --davix-h2i-bg: #12151b;
+  --davix-h2i-card-bg: #0b0d10;
+  --davix-h2i-input-bg: #ffc9e5;
+  --davix-h2i-text-light: #ffffff;
+  --davix-h2i-text-dark: #0b0d10;
+  --davix-h2i-chip-selected-bg: #b3d7ff;
+  --davix-h2i-accent-pink: #fc0082;
+  --davix-h2i-accent-blue: #006fe6;
+  --davix-h2i-accent-sky: #4da3ff;
+  --davix-h2i-accent-magenta: #ff64b4;
+  --davix-h2i-border: #2b2f36;
+  --davix-h2i-radius: 10px;
+  --davix-h2i-radius-pill: 999px;
+  --davix-h2i-focus: #4da3ff;
+}
+

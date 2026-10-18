@@ -1,0 +1,347 @@
+/* ── DAVIX DRAWER (generic, reusable across plugins) ─────────────
+   Right-side off-canvas panel. Dimensions/behavior are a 1:1 match of
+   the canonical Davix off-canvas shell already live in Davix Creator
+   (assets/css/shared/davix-offcanvas.css) and Davix SEO's Gutenberg
+   sidebar (assets/css/editor/off-canvas.css) — same width/breakpoints,
+   header/tab/footer chrome, and dark surface tokens, ported to H2I's
+   own bundled copy per the "no cross-plugin runtime dependency" rule
+   those files document. Content composition is left to the consuming
+   plugin; this only owns shell/backdrop/positioning. */
+.dvs-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--dvs-z-overlay);
+  background: rgba(0,0,0,0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+.dvs-drawer-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.dvs-drawer {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: auto !important;
+  /* Must beat legacy media-modal.css `body.davix-h2i-modal-open .davix-h2i-modal`
+     (specificity 0,2,1, z-index:160500) which otherwise drops the drawer BELOW
+     its own backdrop (--dvs-z-overlay 166800) and hides it. The rest of this
+     shell is already !important to win over that legacy modal stylesheet; the
+     drawer conversion just left z-index/padding non-important. */
+  z-index: var(--dvs-z-modal) !important;
+  width: 55% !important;
+  max-width: 820px !important;
+  min-width: 360px !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  /* Legacy .davix-h2i-modal centered its content (align/justify: center); the
+     drawer stacks header/body/footer top-to-bottom and fills the full height. */
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  background: var(--dvs-bg-dark) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: -8px 0 40px rgba(0,0,0,0.35) !important;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--dvs-text-primary) !important;
+}
+.dvs-drawer.is-open {
+  transform: translateX(0);
+}
+.dvs-drawer[hidden] {
+  display: none !important;
+}
+.dvs-drawer-backdrop[hidden] {
+  display: none !important;
+}
+@media (max-width: 1440px) { .dvs-drawer { width: 65% !important; } }
+@media (max-width: 1200px) { .dvs-drawer { width: 80% !important; } }
+@media (max-width: 782px) {
+  .dvs-drawer { width: 100% !important; max-width: 100% !important; min-width: 0 !important; }
+  .dvs-drawer-tabs { flex-wrap: nowrap !important; overflow-x: auto !important; scrollbar-width: none !important; }
+  .dvs-drawer-tabs::-webkit-scrollbar { display: none; }
+  .dvs-drawer-tab { flex-shrink: 0 !important; padding: 8px 12px !important; }
+}
+@media (max-width: 480px) {
+  .dvs-drawer-header { padding: 12px 16px !important; }
+  .dvs-drawer-footer { padding: 10px 16px !important; }
+}
+/* NOTE: the drawer no longer wraps header/tabs/body/footer in an inner
+   .davix-h2i-modal-content "mother panel" div — modal.php was restructured
+   so they are direct children of #davix-h2i-modal (.dvs-drawer itself),
+   matching Davix Creator's flat .davix-offcanvas > header/tabs/body/footer
+   hierarchy. .davix-h2i-modal-content still exists as a real wrapper in the
+   separate (non-drawer) preview/results/settings-expand overlays — see the
+   .davix-h2i-modal-content rule in media-modal.css, untouched. */
+.dvs-drawer-header {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  padding: 14px 20px !important;
+  background: var(--dvs-black) !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(77, 163, 255, 0.10) !important;
+  position: sticky !important;
+  top: 0 !important;
+}
+.dvs-drawer-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+.dvs-drawer-brand-logo {
+  height: 34px !important;
+  width: auto !important;
+  max-width: 140px !important;
+  object-fit: contain !important;
+  flex-shrink: 0 !important;
+}
+.dvs-drawer-title {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+}
+.dvs-drawer-close {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  flex-shrink: 0 !important;
+  border-radius: var(--dvs-radius) !important;
+  background: transparent !important;
+  border: 1px solid var(--dvs-border-strong) !important;
+  color: var(--dvs-blue-light) !important;
+  cursor: pointer !important;
+}
+.dvs-drawer-close:hover {
+  background: var(--dvs-danger-soft) !important;
+  color: var(--dvs-danger-text) !important;
+  border-color: rgba(239,68,68,0.30) !important;
+}
+.dvs-drawer-tabs {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0 !important;
+  padding: 0 8px !important;
+  background: var(--dvs-black) !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(77, 163, 255, 0.10) !important;
+  margin: 0 !important;
+}
+.dvs-drawer-tab {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 10px 14px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--dvs-blue-light) !important;
+  border: 0 !important;
+  border-bottom: 2px solid transparent !important;
+  border-radius: 0 !important;
+  margin: 0 0 -1px !important;
+  cursor: pointer !important;
+  background: transparent !important;
+}
+.dvs-drawer-tab:hover { color: var(--dvs-blue) !important; background: rgba(77, 163, 255, 0.04) !important; }
+.dvs-drawer-tab.is-active {
+  color: var(--dvs-blue) !important;
+  background: transparent !important;
+  border-bottom: 2px solid var(--dvs-blue) !important;
+  font-weight: 600 !important;
+}
+.dvs-drawer-body {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  /* No padding here — matches Creator's davix-offcanvas-body exactly, so the
+     scrollbar sits flush at the drawer's outer edge instead of inset. The
+     H2I drawer's true scroll container is actually one level deeper
+     (.davix-h2i-tab-content, since multiple tab panels coexist in the DOM),
+     so this container rarely scrolls itself in practice, but it must still
+     carry zero padding to avoid resurrecting the old inset-card look. */
+  padding: 0 !important;
+  background: transparent !important;
+}
+.dvs-drawer-footer {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  padding: 12px 20px !important;
+  background: var(--dvs-black) !important;
+  border-top: 1px solid rgba(77, 163, 255, 0.10) !important;
+}
+body.dvs-drawer-open { overflow: hidden; }
+
+/* Shared sticky drawer footer: one footer element outside the scrolling
+   body, per-tab action rows shown/hidden by modal.js so Preview/Generate
+   stay reachable without scrolling to the bottom of the active tab. */
+.davix-h2i-drawer-footer-panel {
+  display: none;
+}
+.davix-h2i-drawer-footer-panel.is-active {
+  display: flex;
+  width: 100%;
+}
+/* Legacy media-modal.css still applies `.davix-h2i-tab-footer{border-top;
+   padding-top:12px}` and a generic `.davix-h2i-actions{padding-top:12px}` /
+   core's unrelated settings-transfer `.davix-h2i-actions{margin-top:8px}` to
+   these same shared class names — each element in the drawer footer picked
+   up all three simultaneously, stacking ~30px of redundant top spacing on
+   top of the drawer footer's own 12px padding (Creator's footer has none of
+   this: footer-actions is flush, padding:0, margin:0). Zero it here, scoped
+   to the drawer footer only, so the settings-page's unrelated import/export
+   actions row keeps its own spacing untouched. */
+#davix-h2i-modal .dvs-drawer-footer .davix-h2i-tab-footer {
+  border-top: 0;
+  padding-top: 0;
+  background: transparent;
+}
+#davix-h2i-modal .dvs-drawer-footer .davix-h2i-actions {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+/* Prevent field/chip overflow inside the drawer's narrower body — inputs,
+   selects, and chip rows must never exceed the card's own width. */
+.dvs-drawer .davix-h2i-chip-fields,
+.dvs-drawer .davix-h2i-card {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+.dvs-drawer .davix-h2i-chip-field-control input,
+.dvs-drawer .davix-h2i-chip-field-control select,
+.dvs-drawer .davix-h2i-input,
+.dvs-drawer .davix-h2i-select,
+.dvs-drawer .davix-h2i-textarea {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+.dvs-drawer .davix-h2i-chip-row {
+  flex-wrap: wrap !important;
+}
+
+/* Neutralize legacy media-modal.css per-tab pink/blue field theming
+   (--davix-h2i-tab-field-bg driven) inside the drawer and the H2I
+   full-screen editor — those selectors out-specificity plain class
+   rules, so force the canonical dark treatment here. */
+#davix-h2i-modal .davix-h2i-chip,
+#davix-h2i-expand-modal .davix-h2i-chip {
+  background: #1a1f28 !important;
+  border-color: rgba(77, 163, 255, 0.30) !important;
+  color: #cfe5ff !important;
+}
+#davix-h2i-modal .davix-h2i-input,
+#davix-h2i-modal .davix-h2i-select,
+#davix-h2i-modal .davix-h2i-textarea,
+#davix-h2i-modal input[type="text"],
+#davix-h2i-modal input[type="number"],
+#davix-h2i-modal select,
+#davix-h2i-modal textarea,
+#davix-h2i-expand-modal .davix-h2i-input,
+#davix-h2i-expand-modal .davix-h2i-select,
+#davix-h2i-expand-modal .davix-h2i-textarea,
+#davix-h2i-expand-modal input[type="text"],
+#davix-h2i-expand-modal input[type="number"],
+#davix-h2i-expand-modal select,
+#davix-h2i-expand-modal textarea {
+  background: var(--dvs-surface-3) !important;
+  color: var(--dvs-text-primary) !important;
+  border-color: var(--dvs-border-strong) !important;
+}
+#davix-h2i-modal .davix-h2i-input:focus,
+#davix-h2i-modal .davix-h2i-select:focus,
+#davix-h2i-modal .davix-h2i-textarea:focus,
+#davix-h2i-expand-modal .davix-h2i-input:focus,
+#davix-h2i-expand-modal .davix-h2i-select:focus,
+#davix-h2i-expand-modal .davix-h2i-textarea:focus {
+  background: var(--dvs-surface-3) !important;
+  color: #fff !important;
+  border-color: var(--dvs-blue) !important;
+  outline-color: var(--dvs-blue) !important;
+}
+#davix-h2i-modal .davix-h2i-modal-header h2,
+#davix-h2i-modal .davix-h2i-close,
+#davix-h2i-expand-modal .davix-h2i-modal-header h2,
+#davix-h2i-expand-modal .davix-h2i-close {
+  color: var(--dvs-text-heading) !important;
+}
+#davix-h2i-modal .davix-h2i-tab-btn {
+  background: transparent !important;
+  color: var(--dvs-text-secondary) !important;
+  border: 0 !important;
+}
+#davix-h2i-modal .davix-h2i-tab-btn.active,
+#davix-h2i-modal .davix-h2i-tab-btn.is-active {
+  background: transparent !important;
+  color: var(--dvs-blue) !important;
+}
+#davix-h2i-modal .davix-h2i-label,
+#davix-h2i-modal label,
+#davix-h2i-expand-modal .davix-h2i-label {
+  color: var(--dvs-text-secondary) !important;
+}
+#davix-h2i-modal .davix-h2i-token-pill {
+  background: var(--dvs-surface-3) !important;
+  color: var(--dvs-text-primary) !important;
+  border-color: var(--dvs-border-strong) !important;
+}
+
+
+/* ── Chip options in the drawer: label on the left, field on the right, one row each, everything left-aligned. ── */
+#davix-h2i-modal .davix-h2i-chip-fields .davix-h2i-chip-field-row,
+#davix-h2i-modal .davix-h2i-chip-fields .davix-h2i-chip-field-row.is-checkbox {
+  display: grid;
+  grid-template-columns: minmax(110px, 40%) minmax(0, 1fr);
+  align-items: center;
+  column-gap: 16px;
+  row-gap: 0;
+  margin: 0;
+  padding: 10px 0;
+  text-align: left;
+  justify-content: stretch;
+}
+#davix-h2i-modal .davix-h2i-chip-fields .davix-h2i-chip-field-row + .davix-h2i-chip-field-row {
+  border-top: 1px solid var(--dvs-border);
+}
+#davix-h2i-modal .davix-h2i-chip-fields .davix-h2i-chip-field-label {
+  margin: 0;
+  text-align: left;
+  justify-self: start;
+}
+#davix-h2i-modal .davix-h2i-chip-fields .davix-h2i-chip-field-control {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-start;
+  text-align: left;
+}
+#davix-h2i-modal .davix-h2i-chip-fields .davix-h2i-chip-field-control input[type="text"],
+#davix-h2i-modal .davix-h2i-chip-fields .davix-h2i-chip-field-control input[type="number"],
+#davix-h2i-modal .davix-h2i-chip-fields .davix-h2i-chip-field-control select {
+  width: 100% !important;
+  margin: 0;
+  text-align: left;
+}
+
+/* The WordPress media window opened from the sidebar or a form must sit in front of the sidebar (z-index var(--dvs-z-modal)). */
+.media-modal { z-index: calc(var(--dvs-z-modal, 166900) + 100) !important; }
+.media-modal-backdrop { z-index: calc(var(--dvs-z-modal, 166900) + 90) !important; }

@@ -1,0 +1,148 @@
+/* ════════════════════════════════════════════════════════════════
+   LOG VIEWER — shared by the in-shell admin.php page
+   (includes/views/log-viewer.php) and the standalone admin-post.php
+   page (davix_h2i_render_log_viewer_standalone()). Both render the
+   same .dvs-panel.dvs-log-viewer markup and are driven by
+   log-viewer.js / log-viewer-standalone.js respectively. Reuses the
+   existing .dvs-panel / .dvs-panel-header-main / .dvs-badge
+   components rather than inventing a parallel visual language.
+   ════════════════════════════════════════════════════════════════ */
+.dvs-log-viewer .dvs-settings-stack {
+  gap: 12px;
+}
+.dvs-log-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.dvs-log-search {
+  flex: 1 1 240px;
+  min-width: 160px;
+  background: var(--dvs-surface-2);
+  border: 1px solid var(--dvs-border);
+  border-radius: var(--dvs-radius-sm);
+  color: var(--dvs-text-primary);
+  padding: 7px 10px;
+  font-size: 12px;
+}
+.dvs-log-search::placeholder {
+  color: var(--dvs-text-muted);
+}
+.dvs-log-search:focus,
+.dvs-log-level-filter:focus {
+  outline: 2px solid var(--dvs-blue);
+  outline-offset: 1px;
+}
+.dvs-log-level-filter {
+  flex: 0 0 auto;
+  background: var(--dvs-surface-2);
+  border: 1px solid var(--dvs-border);
+  border-radius: var(--dvs-radius-sm);
+  color: var(--dvs-text-primary);
+  padding: 7px 10px;
+  font-size: 12px;
+}
+.dvs-log-meta {
+  font-size: 11px;
+  color: var(--dvs-text-muted);
+}
+.dvs-log-viewport {
+  border: 1px solid var(--dvs-border);
+  border-radius: var(--dvs-radius-sm);
+  background: var(--dvs-bg-dark);
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.dvs-log-list {
+  display: flex;
+  flex-direction: column;
+}
+.dvs-log-row {
+  display: flex;
+  gap: 12px;
+  padding: 7px 14px;
+  border-bottom: 1px solid var(--dvs-border);
+  align-items: baseline;
+  font-family: var(--dvs-font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.dvs-log-row:last-child {
+  border-bottom: none;
+}
+.dvs-log-row__time {
+  flex: 0 0 148px;
+  color: var(--dvs-text-secondary);
+  white-space: nowrap;
+}
+.dvs-log-row__level {
+  flex: 0 0 auto;
+  min-width: 64px;
+  text-align: center;
+  align-self: flex-start;
+}
+.dvs-log-row__message {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--dvs-text-primary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.dvs-log-empty,
+.dvs-log-loading,
+.dvs-log-error {
+  padding: 28px 18px;
+  text-align: center;
+  color: var(--dvs-text-secondary);
+  font-size: 12px;
+}
+.dvs-log-error {
+  color: var(--dvs-danger-text);
+}
+.dvs-log-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.dvs-log-spinner {
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-top-color: var(--dvs-text-secondary);
+  border-radius: 50%;
+  display: inline-block;
+  animation: davixSpin 0.8s linear infinite;
+}
+.dvs-log-viewport::-webkit-scrollbar { width: 6px; }
+.dvs-log-viewport::-webkit-scrollbar-track { background: transparent; }
+.dvs-log-viewport::-webkit-scrollbar-thumb {
+  background: var(--dvs-border-strong);
+  border-radius: var(--dvs-radius-full);
+}
+
+@media (max-width: 782px) {
+  .dvs-log-row {
+    flex-wrap: wrap;
+  }
+  .dvs-log-row__time {
+    flex: 0 0 auto;
+  }
+  .dvs-log-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .dvs-log-level-filter {
+    flex: 1 1 auto;
+  }
+}
+.davix-h2i-help-content h3 { font-size: 18px; margin-bottom: 10px; }
+/* Settings header brand mark (Davix H2I logo, assets/image/logo). */
+.davix-h2i-settings-header__logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+

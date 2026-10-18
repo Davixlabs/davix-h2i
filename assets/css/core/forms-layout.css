@@ -1,0 +1,405 @@
+/* ================================================================
+   LEGACY MIGRATION — admin-settings.css (deleted)
+   Every rule below was verified still-live via disable-and-diff across
+   all 6 settings tabs before being ported here. Consolidated: the source
+   file duplicated every selector for
+   body.toplevel_page_davix-h2i-settings / body.davix-h2i_page_davix-h2i-settings
+   (two possible WP hook names for the same page) and had the entire
+   responsive field-group/chip-picker/table grid block declared TWICE —
+   both are collapsed to one canonical declaration here, scoped only by
+   .davix-h2i-settings-screen (already sufficiently specific; the body-class
+   pairs added nothing but bulk). Rules confirmed already-dead elsewhere
+   (superseded by core components added in earlier migration passes —
+   e.g. the old .davix-h2i-settings-header wrapper, the settings-page/H2I-tab
+   fullscreen-expand icon's light-blue fill, the Open Log/Refresh Logs
+   buttons' pink/blue borders) were NOT ported; carrying them forward would
+   have resurrected dead legacy visuals once this file's cascade position
+   disappeared. See h2i-css-final-migration memory for the full audit.
+   ================================================================ */
+
+/* WP admin chrome height/overflow reset for the settings screen. */
+body.toplevel_page_davix-h2i-settings #wpwrap,
+body.toplevel_page_davix-h2i-settings #wpcontent,
+body.toplevel_page_davix-h2i-settings #wpbody,
+body.toplevel_page_davix-h2i-settings #wpbody-content,
+body.davix-h2i_page_davix-h2i-settings #wpwrap,
+body.davix-h2i_page_davix-h2i-settings #wpcontent,
+body.davix-h2i_page_davix-h2i-settings #wpbody,
+body.davix-h2i_page_davix-h2i-settings #wpbody-content {
+  background: var(--dvs-bg-dark);
+  height: auto;
+  min-height: 0;
+  overflow: auto;
+}
+body.toplevel_page_davix-h2i-settings,
+body.davix-h2i_page_davix-h2i-settings {
+  background: var(--dvs-bg-dark);
+  overflow: auto;
+}
+
+/* Mother panel background (the "settings container" wrap div). */
+.davix-h2i-settings-container {
+  background: var(--dvs-bg-dark);
+  border-radius: 12px;
+}
+
+/* Tab/subtab panel top gap: the same as the Davix AI Engine (content area padding, then 4px; the sub-tab bar carries its own 20px below). */
+.davix-admin .davix-h2i-tab-panel { margin-top: 0; padding-top: 4px; }
+.davix-admin .davix-h2i-subtab-panel { margin-top: 0; }
+.davix-h2i-settings-screen > h1,
+.davix-h2i-settings-screen .davix-h2i-settings-tabs--legacy { display: none; }
+
+.davix-h2i-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* ── FIELD ROW / GROUP / CHIP-PICKER GRID (canonical, used by every
+   settings tab) — desktop grid: 260px label column + flexible field
+   column, matching the field-group pattern already used site-wide. ── */
+.davix-h2i-field-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.davix-h2i-field-group:last-child { margin-bottom: 0; }
+.davix-h2i-settings-table { width: 100%; border-collapse: collapse; }
+.davix-h2i-settings-table tr { display: block; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--dvs-border); }
+.davix-h2i-settings-table tr:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+.davix-h2i-settings-table th,
+.davix-h2i-settings-table td { display: block; width: 100%; padding: 0; }
+.davix-h2i-settings-table th { margin-bottom: 8px; }
+.davix-h2i-settings-table .description { color: var(--dvs-text-primary); opacity: 0.85; margin-top: 6px; }
+.davix-h2i-field-row--checkbox { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 12px; }
+.davix-h2i-field-row--checkbox th,
+.davix-h2i-field-row--checkbox td { display: flex; align-items: center; margin: 0; }
+.davix-h2i-field-row--checkbox th { flex: 1; }
+.davix-h2i-field-row--checkbox .davix-h2i-label { margin-bottom: 0; }
+.davix-h2i-settings .davix-h2i-input,
+.davix-h2i-settings .davix-h2i-select,
+.davix-h2i-settings .davix-h2i-textarea { width: 100%; max-width: 360px; }
+.davix-h2i-output-suffix-field { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; max-width: 320px; }
+/* Author-level display:flex above otherwise beats the browser's own low-
+   priority [hidden] UA-stylesheet rule, which would make the field ignore
+   its `hidden` attribute (set when output mode isn't "copy") and stay
+   visible. Restore native hidden behavior explicitly. */
+.davix-h2i-output-suffix-field[hidden] { display: none !important; }
+.davix-admin .davix-h2i-subtabs { margin-top: 0; }
+.davix-h2i-settings-screen #davix-h2i-settings-expand-modal #davix-h2i-settings-expand-title { color: #fff; }
+.davix-h2i-chip-fields-group { margin-top: 12px; }
+.davix-h2i-chip-field-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.davix-h2i-chip-field-row.is-checkbox { flex-direction: row; justify-content: space-between; align-items: center; gap: 12px; }
+.davix-h2i-chip-field-row.is-checkbox .davix-h2i-chip-field-control { width: auto; }
+/* Settings-page field-header (label + fullscreen-expand icon row) uses
+   flex-end alignment; scoped to the settings screen so it never collides
+   with the Media Library drawer's own .davix-h2i-field-header (justify-
+   content: space-between), which is a distinct, deliberately different
+   layout owned by media-modal.css. */
+.davix-h2i-settings-screen .davix-h2i-field-header { display: flex; justify-content: flex-end; margin-bottom: 6px; }
+.davix-h2i-settings-screen .davix-h2i-output-suffix { max-width: 320px; }
+
+@media (min-width: 783px) {
+  .davix-h2i-settings-screen .davix-h2i-settings-table tr { display: flex; align-items: center; gap: 16px; margin: 0 0 14px; }
+  .davix-h2i-settings-screen .davix-h2i-settings-table tr.davix-h2i-field-row--stacked { display: block; }
+  .davix-h2i-settings-screen .davix-h2i-settings-table th,
+  .davix-h2i-settings-screen .davix-h2i-settings-table td { display: block; width: auto; }
+  .davix-h2i-settings-screen .davix-h2i-settings-table th { flex: 0 0 260px; padding-right: 24px; }
+  .davix-h2i-settings-screen .davix-h2i-settings-table td { flex: 1 1 auto; }
+  .davix-h2i-settings-screen .davix-h2i-field-row--checkbox { display: flex; }
+  .davix-h2i-settings-screen .davix-h2i-field-row--checkbox td { text-align: left; }
+  .davix-h2i-settings-screen .davix-h2i-field-group {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    column-gap: 16px;
+    align-items: center;
+    max-width: 900px;
+  }
+  .davix-h2i-settings-screen .davix-h2i-field-group > .davix-h2i-label { margin-bottom: 0; }
+  .davix-h2i-settings-screen .davix-h2i-chip-picker {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    column-gap: 16px;
+    row-gap: 10px;
+    align-items: start;
+    max-width: 900px;
+  }
+  .davix-h2i-settings-screen .davix-h2i-chip-picker > .davix-h2i-label { grid-column: 1; }
+  .davix-h2i-settings-screen .davix-h2i-chip-picker > .davix-h2i-chip-select,
+  .davix-h2i-settings-screen .davix-h2i-chip-picker > .davix-h2i-chip-row { grid-column: 2; }
+  .davix-h2i-settings-screen .davix-h2i-chip-field-row {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    column-gap: 16px;
+    align-items: center;
+    max-width: 900px;
+  }
+  .davix-h2i-settings-screen .davix-h2i-chip-field-control { display: flex; align-items: center; gap: 12px; }
+  /* Real historical behavior (verified via disable-and-diff) keeps this
+     flex-column at every width — an earlier unconditional !important rule
+     in admin-settings.css always beat its own desktop-grid variant, so the
+     grid layout never actually rendered. Preserved as flex here rather than
+     "fixed" to grid, since this task migrates existing behavior verbatim. */
+  .davix-h2i-settings-screen .davix-h2i-output-suffix-field .davix-h2i-label { margin-bottom: 0; }
+  .davix-h2i-settings-screen .davix-h2i-input,
+  .davix-h2i-settings-screen .davix-h2i-select { width: 100%; max-width: 520px; }
+  .davix-h2i-settings-screen input[type="number"] { max-width: 140px; }
+}
+
+/* Per-chip-group layout when a chip picker's dropdown/rows must stay in
+   the settings screen's dedicated single-column arrangement (Image
+   Defaults, Image Auto-Optimize, Tools Defaults). */
+.davix-h2i-settings-screen .davix-h2i-chip-picker[data-chip-group="image-defaults"],
+.davix-h2i-settings-screen .davix-h2i-chip-picker[data-chip-group="image-auto"],
+.davix-h2i-settings-screen .davix-h2i-chip-picker[data-chip-group="tools-defaults"] {
+  display: block !important;
+}
+.davix-h2i-settings-screen .davix-h2i-chip-picker[data-chip-group="image-defaults"] > .davix-h2i-label,
+.davix-h2i-settings-screen .davix-h2i-chip-picker[data-chip-group="image-auto"] > .davix-h2i-label,
+.davix-h2i-settings-screen .davix-h2i-chip-picker[data-chip-group="tools-defaults"] > .davix-h2i-label {
+  display: block;
+  margin-bottom: 6px;
+}
+.davix-h2i-settings-screen .davix-h2i-chip-picker[data-chip-group="image-defaults"] > .davix-h2i-chip-select,
+.davix-h2i-settings-screen .davix-h2i-chip-picker[data-chip-group="image-auto"] > .davix-h2i-chip-select,
+.davix-h2i-settings-screen .davix-h2i-chip-picker[data-chip-group="tools-defaults"] > .davix-h2i-chip-select {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+}
+.davix-h2i-settings-screen .davix-h2i-chip-picker[data-chip-group="image-defaults"] > .davix-h2i-chip-row,
+.davix-h2i-settings-screen .davix-h2i-chip-picker[data-chip-group="image-auto"] > .davix-h2i-chip-row,
+.davix-h2i-settings-screen .davix-h2i-chip-picker[data-chip-group="tools-defaults"] > .davix-h2i-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.davix-h2i-settings-screen .davix-h2i-chip-fields-group[data-chip-group="image-defaults"],
+.davix-h2i-settings-screen .davix-h2i-chip-fields-group[data-chip-group="image-auto"],
+.davix-h2i-settings-screen .davix-h2i-tools-fields {
+  --davix-h2i-dyn-field-width: 140px;
+  --davix-h2i-dyn-field-width-double: 280px;
+}
+.davix-h2i-settings-screen .davix-h2i-chip-fields-group[data-chip-group="image-defaults"] .davix-h2i-chip-field-control input.davix-h2i-input,
+.davix-h2i-settings-screen .davix-h2i-chip-fields-group[data-chip-group="image-defaults"] .davix-h2i-chip-field-control select.davix-h2i-select,
+.davix-h2i-settings-screen .davix-h2i-chip-fields-group[data-chip-group="image-auto"] .davix-h2i-chip-field-control input.davix-h2i-input,
+.davix-h2i-settings-screen .davix-h2i-chip-fields-group[data-chip-group="image-auto"] .davix-h2i-chip-field-control select.davix-h2i-select,
+.davix-h2i-settings-screen .davix-h2i-tools-fields input.davix-h2i-input,
+.davix-h2i-settings-screen .davix-h2i-tools-fields select.davix-h2i-select {
+  width: var(--davix-h2i-dyn-field-width);
+  max-width: var(--davix-h2i-dyn-field-width);
+  box-sizing: border-box;
+}
+.davix-h2i-settings-screen #davix-h2i-image-defaults-field-watermarkText,
+.davix-h2i-settings-screen #davix-h2i-image-auto-field-watermarkText {
+  width: var(--davix-h2i-dyn-field-width-double);
+  max-width: var(--davix-h2i-dyn-field-width-double);
+}
+.davix-h2i-settings-screen .davix-h2i-chip-picker[data-chip-group="tools-defaults"] > #davix-h2i-tools-chip-select {
+  width: clamp(260px, 50%, 520px);
+  max-width: clamp(260px, 50%, 520px);
+  justify-self: start;
+  flex: 0 0 auto;
+}
+.davix-h2i-settings-screen .davix-h2i-chip-fields-group .davix-h2i-chip-field-row.is-checkbox .davix-h2i-chip-field-control {
+  width: var(--davix-h2i-dyn-field-width);
+  max-width: var(--davix-h2i-dyn-field-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.davix-h2i-settings-screen .davix-h2i-chip-fields-group .davix-h2i-card-title,
+.davix-h2i-settings-screen .davix-h2i-tools-fields .davix-h2i-card-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+.davix-h2i-settings-screen #davix-h2i-auto-prefix { width: 260px; max-width: 260px; }
+
+/* Field-specific max-widths carried over from the source (unique IDs, not
+   worth a shared class). */
+.davix-h2i-settings-screen #davix-h2i-auth-mode,
+.davix-h2i-settings-screen #davix-h2i-idempotency-header,
+.davix-h2i-settings-screen #davix-h2i-image-output-mode,
+.davix-h2i-settings-screen #davix-h2i-h2i-output-mode { max-width: 300px; }
+.davix-h2i-settings-screen #davix-h2i-timeout { max-width: 120px; }
+.davix-h2i-settings-screen #davix-h2i-retry { max-width: 100px; }
+.davix-h2i-settings-screen #davix-h2i-h2i-width,
+.davix-h2i-settings-screen #davix-h2i-h2i-height,
+.davix-h2i-settings-screen #davix-h2i-image-defaults-field-width,
+.davix-h2i-settings-screen #davix-h2i-image-defaults-field-height,
+.davix-h2i-settings-screen #davix-h2i-image-auto-field-width,
+.davix-h2i-settings-screen #davix-h2i-image-auto-field-height { max-width: 160px; }
+.davix-h2i-settings-screen #davix-h2i-image-output-suffix,
+.davix-h2i-settings-screen #davix-h2i-h2i-output-suffix,
+.davix-h2i-settings-screen #davix-h2i-auto-output-suffix { width: 300px; max-width: 300px; }
+.davix-h2i-settings-screen #davix-h2i-api-key { max-width: 520px; }
+.davix-h2i-settings-screen #davix-h2i-h2i-html,
+.davix-h2i-settings-screen #davix-h2i-h2i-css { width: 100%; max-width: none; box-sizing: border-box; }
+.davix-h2i-settings-screen #davix-h2i-h2i-format,
+.davix-h2i-settings-screen #davix-h2i-h2i-output-mode { width: 160px; max-width: 160px; }
+
+/* ── API KEY CARD (General tab) ──────────────────────────────────
+   The card container, its #davix-h2i-api-key input, and .davix-h2i-api-key-
+   extra/-link colors are already fully owned by the canonical dark
+   .davix-credential-callout treatment in tabs/general/general.css (an
+   earlier session already neutralized admin-settings.css's old bright-pink
+   card there with an !important override, documented inline) plus the
+   generic .davix-h2i-input dark styling — verified live, not re-declared
+   here to avoid a second, contradictory (legacy pink) definition. Only the
+   clear-button/spinner, which general.css does not cover, are ported. */
+.davix-h2i-settings-screen .davix-h2i-api-key-controls { display: flex; align-items: center; gap: 10px; }
+@keyframes davixSpin { to { transform: rotate(360deg); } }
+
+@media (max-width: 782px) {
+  .davix-h2i-settings-screen .davix-h2i-api-key-card,
+  .davix-h2i-settings-screen .davix-h2i-api-key-card #davix-h2i-api-key {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  .davix-h2i-settings-screen .davix-h2i-api-key-controls { flex-direction: column; align-items: stretch; }
+}
+@media (max-width: 1024px) {
+  .davix-h2i-settings-screen .davix-h2i-settings-table tr td { min-width: 0; }
+  .davix-h2i-settings-screen .davix-h2i-api-key-card,
+  .davix-h2i-settings-screen .davix-h2i-api-key-card #davix-h2i-api-key {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+}
+
+/* ── IMPORT / EXPORT TRANSFER CONTROLS ── */
+.davix-h2i-settings-screen .davix-h2i-settings-actions { display: none; margin: 16px 0 0; }
+.davix-h2i-settings-screen .davix-h2i-settings-actions .davix-h2i-save-button.button,
+.davix-h2i-settings-screen .davix-h2i-settings-actions .davix-h2i-save-button.button-primary,
+.davix-h2i-settings-screen .davix-h2i-settings-actions .davix-h2i-default-button.button { vertical-align: bottom; }
+.davix-h2i-settings-screen .davix-h2i-settings-transfer__import {
+  margin-top: 16px;
+  display: none;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  width: fit-content;
+  max-width: min(100%, 760px);
+  min-height: 76px;
+  background: var(--dvs-black);
+  border: 1px solid #fc0082;
+  border-radius: 12px;
+  padding: 16px 18px 16px 24px;
+  box-sizing: border-box;
+}
+.davix-h2i-settings-screen .davix-h2i-settings-transfer__import.is-open { display: inline-flex; }
+.davix-h2i-settings-screen .davix-h2i-settings-transfer-row .davix-h2i-helptext { margin-top: 0; margin-bottom: 8px; }
+.davix-h2i-settings-screen .davix-h2i-transfer-action-button.button {
+  background: linear-gradient(135deg, rgba(62, 31, 52, 0.95), rgba(34, 14, 30, 0.96));
+  color: #ffffff;
+  border-color: rgba(252, 0, 130, 0.5);
+  box-shadow: 0 10px 24px rgba(252, 0, 130, 0.28), 0 0 18px rgba(252, 0, 130, 0.2);
+}
+.davix-h2i-settings-screen .davix-h2i-transfer-action-button.button:hover,
+.davix-h2i-settings-screen .davix-h2i-transfer-action-button.button:focus {
+  color: #ffffff;
+  border-color: rgba(252, 0, 130, 0.5);
+  box-shadow: 0 14px 32px rgba(252, 0, 130, 0.42), 0 0 22px rgba(252, 0, 130, 0.3);
+}
+.davix-h2i-settings-screen .davix-h2i-settings-transfer__import input[type="file"].davix-h2i-input {
+  color: #ffffff;
+  background: transparent;
+  border-color: #fc0082;
+  flex: 1 1 330px;
+  min-width: 260px;
+  max-width: 500px;
+  margin-left: 0;
+}
+.davix-h2i-settings-screen .davix-h2i-settings-transfer__import .davix-h2i-transfer-confirm-button.button,
+.davix-h2i-settings-screen .davix-h2i-settings-transfer__import .davix-h2i-transfer-confirm-button.button-primary {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.2;
+  box-shadow: 0 8px 18px rgba(0, 111, 230, 0.28);
+}
+.davix-h2i-settings-screen .davix-h2i-settings-transfer__import .davix-h2i-transfer-confirm-button.button:hover,
+.davix-h2i-settings-screen .davix-h2i-settings-transfer__import .davix-h2i-transfer-confirm-button.button:focus,
+.davix-h2i-settings-screen .davix-h2i-settings-transfer__import .davix-h2i-transfer-confirm-button.button-primary:hover,
+.davix-h2i-settings-screen .davix-h2i-settings-transfer__import .davix-h2i-transfer-confirm-button.button-primary:focus {
+  box-shadow: 0 10px 22px rgba(0, 111, 230, 0.34);
+}
+.davix-h2i-settings-screen .davix-h2i-settings-transfer__import input[type="file"].davix-h2i-input::file-selector-button {
+  background: #1a1d22;
+  color: #ffffff;
+  border: 1px solid #fc0082;
+}
+@media (max-width: 782px) {
+  .davix-h2i-settings-screen .davix-h2i-settings-transfer__import.is-open { display: flex; width: 100%; max-width: 100%; }
+}
+
+/* ── TOOLTIP BUBBLE POSITIONING (base cosmetic colors already migrated
+   from theme.css in the previous pass; this adds the positioning/sizing
+   half that lived in admin-settings.css). ── */
+.davix-h2i-tooltip-icon {
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 6px;
+}
+.davix-h2i-tooltip-bubble {
+  position: absolute;
+  max-width: 320px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+  z-index: var(--dvs-z-toast);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  white-space: normal;
+}
+.davix-h2i-tooltip-bubble[data-state="hidden"] { display: none; }
+
+/* ── HELP CONTENT TYPOGRAPHY (shared prose formatting reused by both
+   Help -> About and Help -> Support; screen-specific card layout stays
+   in tabs/help/about.css and tabs/help/support.css). ── */
+.davix-h2i-help-content,
+.davix-h2i-help-content .davix-h2i-help-text,
+.davix-h2i-help-content ol,
+.davix-h2i-help-content li { color: #ffffff; }
+.davix-h2i-help-content .description,
+.davix-h2i-help-content .davix-h2i-muted { color: #d4d7dd; }
+.davix-h2i-help-content a { color: var(--dvs-blue-dark); }
+.davix-h2i-help-content h1,
+.davix-h2i-help-content h2,
+.davix-h2i-help-content h3 { color: #ffffff !important; }
+.davix-h2i-help-content h2 { font-size: 22px; margin-bottom: 12px; }
+
+
+/* "More options" under an action's own options: every other setting the service supports, folded away. */
+.dvx-advanced { margin-top: 12px; border: 1px solid var(--dvs-border); border-radius: var(--dvs-radius-md, 10px); padding: 0 14px; }
+.dvx-advanced > summary { cursor: pointer; padding: 12px 0; font-weight: 600; color: var(--dvs-text-heading); list-style: none; }
+.dvx-advanced > summary::-webkit-details-marker { display: none; }
+.dvx-advanced > summary::after { content: "+"; float: right; color: var(--dvs-text-secondary); }
+.dvx-advanced[open] > summary::after { content: "−"; }
+.dvx-advanced > .description { margin: 0 0 8px; }
+.dvx-media-pick { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; text-align: left; }
+.dvx-media-pick [hidden] { display: none !important; }
+
+/* Automatic rules side panel */
+.dvx-auto-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.dvx-auto-row .davix-h2i-label { margin: 0; }
+.dvx-auto-subtitle { margin: 24px 0 8px; font-size: 14px; color: var(--dvs-text-heading); }
+[data-auto-editor] .davix-h2i-checkbox-list { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+
+/* Create: the screens are chosen from one dropdown instead of a row of tabs. */
+.davix-h2i-picker { display: flex; flex-direction: column; gap: 6px; max-width: 360px; margin-bottom: 16px; }
+.davix-h2i-picker label { font-weight: 600; }
+.davix-h2i-picker select { width: 100%; max-width: 360px; }

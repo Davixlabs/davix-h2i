@@ -1,0 +1,842 @@
+/* ════════════════════════════════════════════════════════════════
+   LEGACY MIGRATION — media-modal.css (deleted)
+   Verified live via disable-and-diff against the Media Library drawer,
+   Preview popup, fullscreen editor, and compare-viewer before porting.
+   Dropped as dead (already superseded by dvs-* components confirmed via
+   the same diff): the data-tab pink/blue field-color theming block, the
+   duplicate tooltip-icon/bubble rules (core already has an unscoped
+   copy), the modal-tabs/tab-btn coloring (drawer tabs are dvs-drawer-tab
+   now), the drawer's own generate/preview/cancel button colors (drawer
+   buttons are dvs-save-button/dvs-btn now), and the attachment
+   edit/bulk button restyle (superseded by .dvs-branded-btn--pink).
+   The centered-modal chrome below is NOT dead — it is still the live,
+   unredesigned markup for #davix-h2i-preview-modal (Preview interface).
+   ════════════════════════════════════════════════════════════════ */
+
+.davix-h2i-modal[data-davix-h2i-scope="modal"] {
+    --davix-h2i-small-field-width: 160px;
+    --davix-h2i-modal-field-width: 160px;
+}
+
+.davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-modal-header h2,
+.davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-close,
+.davix-h2i-modal[data-davix-h2i-scope="preview"] .davix-h2i-modal-header h2,
+.davix-h2i-modal[data-davix-h2i-scope="preview"] .davix-h2i-close,
+#davix-h2i-expand-modal .davix-h2i-modal-header h2,
+#davix-h2i-expand-modal .davix-h2i-close {
+    color: #fff;
+}
+
+.davix-h2i-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 160500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.davix-h2i-modal-content {
+    position: relative;
+    background: var(--davix-h2i-bg);
+    padding: 24px;
+    width: min(calc(100vw - 80px), 1100px);
+    max-width: 100%;
+    height: min(calc(100vh - 80px), 800px);
+    max-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.davix-h2i-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--davix-h2i-border);
+    padding-bottom: 12px;
+}
+
+.davix-h2i-modal-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+}
+
+.davix-h2i-modal-header h2 {
+    margin: 0;
+}
+
+.davix-h2i-close {
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.davix-h2i-tab-panel {
+    display: none;
+    padding-top: 16px;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.davix-h2i-tab-panel.active {
+    display: flex;
+}
+
+.davix-h2i-modal-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.davix-h2i-tab-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;
+    min-height: 0;
+}
+
+.davix-h2i-tab-footer {
+    border-top: 1px solid var(--davix-h2i-border);
+    padding-top: 12px;
+    background: var(--davix-h2i-bg);
+}
+
+@media (max-width: 782px) {
+    .davix-h2i-modal {
+        padding: 12px;
+    }
+    .davix-h2i-modal-content {
+        width: calc(100vw - 24px);
+        height: calc(100vh - 24px);
+        max-height: calc(100vh - 24px);
+        padding: 16px;
+    }
+}
+
+.davix-h2i-section {
+    margin-bottom: 20px;
+}
+
+.davix-h2i-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.davix-h2i-field-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.davix-h2i-field-group label {
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+}
+
+.davix-h2i-field-group input[type="text"],
+.davix-h2i-field-group input[type="number"],
+.davix-h2i-field-group select,
+.davix-h2i-field-group textarea {
+    width: 100%;
+    max-width: 100%;
+}
+
+@media (min-width: 783px) {
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-field-group {
+        display: grid;
+        grid-template-columns: 200px minmax(0, 1fr);
+        column-gap: 20px;
+        align-items: center;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-field-group > .davix-h2i-label {
+        margin-bottom: 0;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-field-group--stacked {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-field-group:not(.davix-h2i-field-group--stacked) input[type="text"],
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-field-group:not(.davix-h2i-field-group--stacked) input[type="number"],
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-field-group:not(.davix-h2i-field-group--stacked) select,
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-field-group:not(.davix-h2i-field-group--stacked) textarea {
+        width: 100%;
+        max-width: 520px;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-output-options {
+        display: grid;
+        row-gap: 16px;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-chip-field-row {
+        display: grid;
+        grid-template-columns: 200px minmax(0, 1fr);
+        column-gap: 16px;
+        align-items: center;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-chip-field-row.is-checkbox {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-tool-field-row {
+        display: grid;
+        grid-template-columns: 200px minmax(0, 1fr);
+        column-gap: 16px;
+        align-items: center;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-tool-field-control select,
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-tool-field-control input {
+        max-width: 360px;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-tool-field-control input[type="number"] {
+        max-width: 140px;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-input,
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-select {
+        max-width: 520px;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-input[type="number"] {
+        max-width: 160px;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-image-output-mode,
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-h2i-output-mode {
+        max-width: 300px;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-format {
+        max-width: var(--davix-h2i-modal-field-width);
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-image-suffix,
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-h2i-suffix {
+        max-width: 300px;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-width,
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-height {
+        max-width: var(--davix-h2i-modal-field-width);
+    }
+}
+
+.davix-h2i-preview-area {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.davix-h2i-preview-area img {
+    max-width: 120px;
+    border-radius: 4px;
+    border: 1px solid var(--davix-h2i-border);
+}
+
+.davix-h2i-thumb-more {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 6px;
+    border-radius: 10px;
+    background: #f0f0f1;
+    color: #50575e;
+    font-size: 12px;
+}
+
+.davix-h2i-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.davix-h2i-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+.davix-h2i-chip button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.davix-h2i-chip-fields .chip {
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: var(--davix-h2i-card-bg);
+    border: 1px solid var(--davix-h2i-border);
+}
+
+.davix-h2i-chip-fields .chip h4 {
+    margin: 0 0 12px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 15px;
+}
+
+.davix-h2i-chip-field-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.davix-h2i-chip-field-row.is-checkbox {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.davix-h2i-chip-field-label {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.davix-h2i-chip-field-control input[type="text"],
+.davix-h2i-chip-field-control input[type="number"],
+.davix-h2i-chip-field-control select {
+    width: 100%;
+    max-width: 100%;
+}
+
+.davix-h2i-output-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.davix-h2i-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-top: 12px;
+    margin: 0;
+}
+
+.davix-h2i-h2i-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.davix-h2i-preview-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0 12px;
+    flex-wrap: wrap;
+}
+
+.davix-h2i-preview-actions {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.davix-h2i-preview-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.davix-h2i-preview-header {
+    flex: 0 0 auto;
+}
+
+.davix-h2i-preview-grid-wrap {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;
+}
+
+.davix-h2i-preview-footer {
+    border-top: 1px solid var(--davix-h2i-border);
+    padding-top: 12px;
+    background: var(--davix-h2i-bg);
+}
+
+#davix-h2i-expand-text {
+    width: 100%;
+    min-height: 320px;
+    font-family: Consolas, 'Courier New', monospace;
+}
+
+.davix-h2i-token-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.davix-h2i-token-pill {
+    display: inline-flex;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: var(--davix-h2i-card-bg);
+    border: 1px solid var(--davix-h2i-border);
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 12px;
+}
+
+body.davix-h2i-modal-open .davix-h2i-modal {
+    /* Keep above WP media modal (typically z-index ~160000). */
+    z-index: 160500;
+}
+
+body.davix-h2i-modal-open .davix-h2i-modal-content {
+    z-index: 160510;
+}
+
+body.davix-h2i-wpmedia-open .media-modal-backdrop {
+    z-index: 160840;
+}
+
+body.davix-h2i-wpmedia-open .media-modal {
+    z-index: 160850;
+}
+
+.davix-h2i-expand-modal {
+    z-index: 160700;
+}
+
+.davix-h2i-expand-modal .davix-h2i-modal-content {
+    width: min(calc(100vw - 80px), 900px);
+    z-index: 160710;
+}
+
+.davix-h2i-modal.davix-h2i-modal-suspended {
+    display: none;
+}
+
+.davix-h2i-tools-selection label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 12px;
+}
+
+.davix-h2i-tool-section {
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: var(--davix-h2i-card-bg);
+    border: 1px solid var(--davix-h2i-border);
+}
+
+.davix-h2i-tool-section-heading {
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.davix-h2i-tool-field-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.davix-h2i-tool-field-row label {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.davix-h2i-tool-field-control select,
+.davix-h2i-tool-field-control input {
+    width: 100%;
+    max-width: 100%;
+}
+
+.davix-h2i-tools-compare {
+    margin: 12px 0 16px;
+}
+
+#davix-h2i-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+#davix-h2i-results-content {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.davix-h2i-preview-item,
+.davix-h2i-preview-single {
+    border: 1px solid var(--davix-h2i-border);
+    border-radius: 8px;
+    padding: 6px;
+    background: var(--davix-h2i-card-bg);
+}
+
+.davix-h2i-preview-item.selected {
+    border-color: var(--davix-h2i-accent-sky);
+    box-shadow: 0 0 0 1px var(--davix-h2i-accent-sky);
+}
+
+.davix-h2i-preview-item img,
+.davix-h2i-preview-single img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+}
+
+.davix-h2i-preview-empty {
+    margin-top: 12px;
+    color: #cdd1d6;
+}
+
+.davix-h2i-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 160800;
+}
+
+.davix-h2i-viewer img {
+    max-width: 90%;
+    max-height: 80%;
+}
+
+.davix-h2i-viewer-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+    padding: 6px 12px;
+    border-radius: 18px;
+    border: 1px solid var(--davix-h2i-border);
+    background: var(--davix-h2i-card-bg);
+}
+
+.davix-h2i-viewer-capsule {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.davix-h2i-viewer-controls .viewer-group {
+    display: inline-flex;
+    gap: 6px;
+}
+
+.davix-h2i-viewer-controls .button {
+    background: var(--davix-h2i-input-bg);
+    border-color: var(--davix-h2i-border);
+}
+
+.davix-h2i-viewer-controls .viewer-zoom {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.davix-h2i-viewer-controls .viewer-close {
+    margin-left: 12px;
+}
+
+#davix-h2i-toast-root {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 160900;
+}
+
+.davix-h2i-toast {
+    min-width: 220px;
+    max-width: 360px;
+    background: #1d2327;
+    color: #fff;
+    padding: 12px 14px;
+    border-radius: 6px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.davix-h2i-toast.is-success {
+    background: #1a7f37;
+}
+
+.davix-h2i-toast.is-error {
+    background: #b32d2e;
+}
+
+.davix-h2i-toast.is-info {
+    background: #2271b1;
+}
+
+.davix-h2i-toast-message {
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.davix-h2i-toast-close {
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+}
+
+.davix-h2i-chip-select option[hidden] {
+    display: none;
+}
+
+.davix-h2i-tool-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.davix-h2i-tool-field-row:last-child {
+    margin-bottom: 0;
+}
+
+.davix-h2i-preview-header,
+.davix-h2i-preview-footer {
+    flex: 0 0 auto;
+}
+
+.davix-h2i-preview-grid-wrap {
+    flex: 1;
+}
+
+.davix-h2i-chip-field-row.is-checkbox .davix-h2i-chip-field-control {
+    width: auto;
+}
+
+.davix-h2i-tool-field-row .davix-h2i-tool-field-control {
+    width: 100%;
+}
+
+@media (min-width: 783px) {
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-chip-picker--image,
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-tool-selection {
+        display: grid;
+        grid-template-columns: 200px minmax(0, 1fr);
+        column-gap: 20px;
+        row-gap: 10px;
+        align-items: center;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-chip-picker--image > .davix-h2i-label,
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-tool-selection > .davix-h2i-label {
+        grid-column: 1;
+        margin: 0;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-chip-picker--image > .davix-h2i-chip-select,
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-tool-selection > .davix-h2i-chip-select {
+        grid-column: 2;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-chip-picker--image > .davix-h2i-chip-row,
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-tool-selection > .davix-h2i-chip-row {
+        grid-column: 2;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-chip-fields .chip .davix-h2i-chip-field-row.is-checkbox {
+        display: grid;
+        grid-template-columns: 200px var(--davix-h2i-modal-field-width);
+        column-gap: 16px;
+        justify-content: start;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-chip-fields .chip .davix-h2i-chip-field-row.is-checkbox .davix-h2i-chip-field-control {
+        justify-self: center;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-chip-fields .chip[data-chip="format"] [data-field="format"],
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-chip-fields .chip[data-chip="padding"] [data-field="padColor"] {
+        max-width: var(--davix-h2i-modal-field-width);
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-chip-fields [data-field="colorSpace"],
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-chip-fields [data-field="pathColor"],
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-chip-fields [data-field="borderColor"],
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-chip-fields [data-field="backgroundColor"],
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-chip-fields [data-field="watermarkColor"],
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-chip-fields [data-field="watermarkPosition"],
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-chip-fields [data-field="width"],
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-chip-fields [data-field="height"],
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-chip-fields [data-field="rotate"] {
+        max-width: var(--davix-h2i-small-field-width);
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-chip-fields [data-field="watermarkText"] {
+        max-width: 260px;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-output-options {
+        grid-template-columns: 1fr;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-image-suffix-field,
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-h2i-suffix-field {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        margin-top: -4px;
+        margin-left: 220px;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-image-suffix-field > .davix-h2i-label,
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-h2i-suffix-field > .davix-h2i-label {
+        margin: 0;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] .davix-h2i-h2i-fields {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-tool-fields #davix-h2i-similarity-mode,
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-tool-fields #davix-h2i-hash-type,
+    .davix-h2i-modal[data-davix-h2i-scope="modal"] #davix-h2i-tool-fields #davix-h2i-similarity-threshold {
+        max-width: 140px;
+    }
+}
+
+#davix-h2i-expand-modal .davix-h2i-modal-content {
+    height: auto;
+    max-height: calc(100vh - 120px);
+    padding: 16px;
+}
+
+#davix-h2i-expand-modal .davix-h2i-modal-body {
+    overflow: visible;
+}
+
+#davix-h2i-expand-modal #davix-h2i-expand-text {
+    min-height: 260px;
+}
+
+/* Preview modal action buttons — confirmed live (preview.php still uses
+   plain button/davix-h2i-button markup, not dvs-save-button/dvs-btn, so
+   these ID-scoped colors are the only styling this popup gets). Drawer
+   and expand-modal button selectors from the original combined rule were
+   dropped here — confirmed dead, both already render via dvs-save-button
+   / dvs-btn core styles regardless of this stylesheet. */
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-close,
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-save,
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-select-toggle,
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-select-all,
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-deselect {
+    border-radius: 15px;
+    border: none;
+}
+
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-save {
+    background: #006fe6;
+    color: #0b0d10;
+}
+
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-save:hover {
+    background: #b3d7ff;
+    color: #0b0d10;
+}
+
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-close {
+    background: #fc0082;
+    color: #0b0d10;
+}
+
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-close:hover {
+    background: #ffc9e5;
+    color: #0b0d10;
+}
+
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-select-toggle {
+    color: #0b0d10;
+}
+
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-select-toggle.is-active {
+    background: #4da3ff;
+    color: #0b0d10;
+}
+
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-select-toggle:not(.is-active) {
+    background: #ff64b4;
+    color: #0b0d10;
+}
+
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-select-all {
+    background: #008D13;
+    color: #0b0d10;
+}
+
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-deselect {
+    background: #960000;
+    color: #0b0d10;
+}
+
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-select-all:hover,
+#davix-h2i-preview-modal[data-davix-h2i-scope="preview"] #davix-h2i-preview-deselect:hover {
+    filter: brightness(0.92);
+}
+

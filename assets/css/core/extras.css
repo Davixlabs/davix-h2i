@@ -1,0 +1,172 @@
+/* ── TOOLS COMPARE / PREVIEW GRID (migrated from media-grid.css) ── */
+#davix-h2i-preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.davix-h2i-preview-item {
+  border: 2px solid transparent;
+  padding: 5px;
+  cursor: pointer;
+}
+.davix-h2i-preview-item.selected {
+  border-color: var(--dvs-blue);
+}
+.davix-h2i-preview-item img {
+  max-width: 150px;
+}
+#davix-h2i-compare-grid {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+#davix-h2i-compare-grid img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--dvs-border);
+}
+
+/* ── EMPTY STATE ──────────────────────────────────────────────── */
+.dvs-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 32px 16px;
+  color: var(--dvs-text-muted);
+}
+.dvs-empty-state .dashicons {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+.dvs-empty-state p { margin: 0; }
+.dvs-empty-state__action { margin-top: 4px; }
+
+/* ── LOADING STATE ────────────────────────────────────────────── */
+.dvs-skeleton {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--dvs-surface-3) 25%, var(--dvs-surface-4) 50%, var(--dvs-surface-3) 75%);
+  background-size: 200% 100%;
+  animation: dvs-skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: 4px;
+  height: 16px;
+}
+@keyframes dvs-skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── EXPANDED EDITOR MODAL ────────────────────────────────────── */
+.davix-h2i-settings-modal {
+  display: none;
+  position: fixed;
+  z-index: var(--dvs-z-modal);
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
+}
+.davix-h2i-settings-modal-content {
+  width: min(90vw, 800px);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+.davix-h2i-settings-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--dvs-surface-2);
+  border-bottom: 1px solid var(--dvs-border);
+  border-radius: var(--dvs-radius-md) var(--dvs-radius-md) 0 0;
+}
+.davix-h2i-settings-modal-header h2 {
+  color: var(--dvs-text-heading);
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+.davix-h2i-settings-close {
+  background: transparent;
+  border: none;
+  color: var(--dvs-text-muted);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--dvs-radius-sm);
+}
+.davix-h2i-settings-close:hover {
+  color: var(--dvs-danger-text);
+  background: rgba(239,68,68,0.1);
+}
+.davix-h2i-settings-modal-body {
+  padding: 18px;
+  overflow-y: auto;
+  background: var(--dvs-surface-1);
+  border-radius: 0 0 var(--dvs-radius-md) var(--dvs-radius-md);
+}
+.davix-h2i-settings-modal-body .davix-h2i-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: flex-end;
+}
+
+/* ── TOKEN PILLS ──────────────────────────────────────────────── */
+.davix-h2i-settings-token-panel {
+  margin-top: 10px;
+  padding: 12px;
+  background: var(--dvs-surface-2);
+  border: 1px solid var(--dvs-border);
+  border-radius: var(--dvs-radius);
+}
+.davix-h2i-settings-token-title {
+  color: var(--dvs-text-heading);
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+.davix-h2i-settings-token-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+.davix-h2i-settings-token-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--dvs-radius-full);
+  background: rgba(77, 163, 255, 0.10);
+  color: var(--dvs-blue-light);
+  font-family: var(--dvs-font-mono);
+  font-size: 11px;
+  border: 1px solid rgba(77, 163, 255, 0.15);
+}
+
+/* ── SCROLLBARS ───────────────────────────────────────────────── */
+.davix-admin-content::-webkit-scrollbar { width: 6px; }
+.davix-admin-content::-webkit-scrollbar-track { background: transparent; }
+.davix-admin-content::-webkit-scrollbar-thumb {
+  background: rgba(77, 163, 255, 0.12);
+  border-radius: 3px;
+}
+.davix-admin-sidebar::-webkit-scrollbar { width: 3px; }
+.davix-admin-sidebar::-webkit-scrollbar-track { background: transparent; }
+.davix-admin-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+}
+

@@ -1,0 +1,122 @@
+/* ================================================================
+   DAVIX H2I ADMIN UI KIT — TOKENS
+   Shared CSS custom properties for Davix H2I plugin admin UIs.
+   Structural/value parity with the Davix Labs design system tokens
+   (assets/css/shared/tokens.css in davix-ai-engine / davix-forms) —
+   same scale, same values, namespaced --davix-h2i-* instead of --davix-*
+   so there is no custom-property collision when Davix plugins and
+   Davix H2I plugins are active on the same site.
+
+   This file is physically duplicated into both Davix H2I plugins
+   (davix-h2i-license-bridge and pixlab-wp-toolkit) rather than shared via
+   a package dependency, mirroring how Davix itself duplicates tokens.css
+   across its own plugin family. Keep both copies in sync.
+   ================================================================ */
+
+:root {
+  /* ═══════ BRAND CORE ═══════ */
+  --davix-h2i-bg-dark:          #12151B;
+  --davix-h2i-black:            #0b0d10;
+
+  --davix-h2i-blue:             #4da3ff;
+  --davix-h2i-blue-light:       #b3d7ff;
+  --davix-h2i-blue-dark:        #006fe6;
+
+  --davix-h2i-pink:             #ff64b4;
+  --davix-h2i-pink-light:       #ffc9e5;
+  --davix-h2i-pink-dark:        #fc0082;
+
+  --davix-h2i-shadow-blue:      rgba(0, 111, 230, 0.67);
+  --davix-h2i-shadow-pink:      rgba(252, 0, 130, 0.67);
+
+  /* ═══════ DARK SURFACES ═══════ */
+  --davix-h2i-surface-1:        #161a22;
+  --davix-h2i-surface-2:        #1a1f28;
+  --davix-h2i-surface-3:        #1e242e;
+  --davix-h2i-surface-4:        #242a36;
+  --davix-h2i-surface-5:        #2a3140;
+
+  /* ═══════ TEXT ON DARK ═══════ */
+  --davix-h2i-text-primary:     #e4e8ee;
+  --davix-h2i-text-secondary:   #9ca3af;
+  --davix-h2i-text-muted:       #6b7280;
+  --davix-h2i-text-heading:     #f1f4f8;
+  --davix-h2i-text-link:        var(--davix-h2i-blue);
+
+  /* ═══════ BORDERS ON DARK ═══════ */
+  --davix-h2i-border:           rgba(255, 255, 255, 0.08);
+  --davix-h2i-border-strong:    rgba(255, 255, 255, 0.14);
+  --davix-h2i-border-blue:      rgba(77, 163, 255, 0.20);
+  --davix-h2i-border-pink:      rgba(255, 100, 180, 0.18);
+
+  /* ═══════ SEMANTIC ═══════ */
+  --davix-h2i-success:          #22c55e;
+  --davix-h2i-success-text:     #4ade80;
+  --davix-h2i-success-soft:     rgba(34, 197, 94, 0.12);
+  --davix-h2i-warning:          #f59e0b;
+  --davix-h2i-warning-text:     #fbbf24;
+  --davix-h2i-warning-soft:     rgba(245, 158, 11, 0.12);
+  --davix-h2i-danger:           #ef4444;
+  --davix-h2i-danger-text:      #f87171;
+  --davix-h2i-danger-soft:      rgba(239, 68, 68, 0.12);
+  --davix-h2i-info:             var(--davix-h2i-blue);
+  --davix-h2i-info-soft:        rgba(77, 163, 255, 0.10);
+
+  /* ═══════ RADIUS ═══════ */
+  --davix-h2i-radius-xs:        4px;
+  --davix-h2i-radius-sm:        6px;
+  --davix-h2i-radius:           8px;
+  --davix-h2i-radius-md:        10px;
+  --davix-h2i-radius-lg:        14px;
+  --davix-h2i-radius-xl:        18px;
+  --davix-h2i-radius-full:      9999px;
+
+  /* ═══════ SHADOWS ═══════ */
+  --davix-h2i-shadow-xs:        0 1px 2px rgba(0, 0, 0, 0.25);
+  --davix-h2i-shadow-sm:        0 1px 3px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.15);
+  --davix-h2i-shadow:           0 2px 8px rgba(0, 0, 0, 0.35), 0 6px 20px rgba(0, 0, 0, 0.15);
+  --davix-h2i-shadow-md:        0 4px 16px rgba(0, 0, 0, 0.4);
+  --davix-h2i-shadow-lg:        0 8px 32px rgba(0, 0, 0, 0.5);
+  --davix-h2i-shadow-glow-blue: 0 0 0 2px rgba(77, 163, 255, 0.35);
+  --davix-h2i-shadow-glow-pink: 0 0 0 2px rgba(255, 100, 180, 0.30);
+
+  /* ═══════ SPACING ═══════ */
+  --davix-h2i-sp-1:   4px;
+  --davix-h2i-sp-2:   8px;
+  --davix-h2i-sp-3:   12px;
+  --davix-h2i-sp-4:   16px;
+  --davix-h2i-sp-5:   20px;
+  --davix-h2i-sp-6:   24px;
+  --davix-h2i-sp-8:   32px;
+  --davix-h2i-sp-10:  40px;
+  --davix-h2i-sp-12:  48px;
+
+  /* ═══════ TYPOGRAPHY ═══════ */
+  --davix-h2i-font:       -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --davix-h2i-font-mono:  Consolas, Monaco, "Courier New", monospace;
+  --davix-h2i-text-xs:    11px;
+  --davix-h2i-text-sm:    12px;
+  --davix-h2i-text-base:  13px;
+  --davix-h2i-text-md:    14px;
+  --davix-h2i-text-lg:    16px;
+  --davix-h2i-text-xl:    18px;
+  --davix-h2i-text-2xl:   22px;
+  --davix-h2i-text-3xl:   28px;
+
+  /* ═══════ TRANSITIONS ═══════ */
+  --davix-h2i-ease:       0.15s ease;
+  --davix-h2i-ease-slow:  0.25s ease;
+  --davix-h2i-ease-modal: 0.2s ease;
+
+  /* ═══════ Z-INDEX ═══════ */
+  --davix-h2i-z-sticky:    20;
+  --davix-h2i-z-dropdown:  30;
+  --davix-h2i-z-overlay:   9998;
+  --davix-h2i-z-modal:     9999;
+  --davix-h2i-z-toast:     10000;
+
+  /* ═══════ LAYOUT ═══════ */
+  --davix-h2i-sidebar-width:  220px;
+  --davix-h2i-header-height:  56px;
+  --davix-h2i-content-max:    1400px;
+}

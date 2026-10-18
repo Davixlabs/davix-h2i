@@ -1,0 +1,125 @@
+/* ── RESPONSIVE ───────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .davix-admin-sidebar {
+    flex-basis: 72px;
+    width: 72px;
+  }
+  .davix-admin-nav-label {
+    display: none;
+  }
+  .davix-admin-nav-item {
+    justify-content: center;
+    padding: 10px;
+    border-left-width: 0;
+    gap: 0;
+  }
+  .davix-admin-nav-item.is-active {
+    border-left-color: transparent;
+  }
+  .davix-admin-sidebar-toggle {
+    display: none;
+  }
+  .davix-admin-content {
+    padding: var(--dvs-sp-4);
+  }
+  .dvs-setting-row {
+    flex-direction: column;
+  }
+  .dvs-setting-row-label {
+    flex: 0 0 auto;
+    max-width: none;
+  }
+}
+
+@media (max-width: 782px) {
+  body.davix-h2i-admin-page,
+  body.davix-h2i-admin-page #wpwrap,
+  body.davix-h2i-admin-page #wpcontent,
+  body.davix-h2i-admin-page #wpbody,
+  body.davix-h2i-admin-page #wpbody-content,
+  body.davix-h2i-admin-page .wrap {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .davix-admin {
+    margin-left: 0;
+    height: auto;
+    overflow: visible;
+  }
+  .davix-admin-header {
+    padding: var(--dvs-sp-2) var(--dvs-sp-4);
+    flex-wrap: wrap;
+    gap: var(--dvs-sp-2);
+  }
+  .davix-admin-header-subtitle { display: none; }
+  .davix-admin-body {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+  .davix-admin-sidebar {
+    width: 100% !important;
+    flex-basis: auto !important;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid rgba(77, 163, 255, 0.06);
+    padding: var(--dvs-sp-1) 0;
+    overflow-x: auto;
+    overflow-y: visible;
+    flex-direction: row;
+  }
+  .davix-admin-sidebar-head { display: none; }
+  .davix-admin-content {
+    height: auto;
+    overflow-y: visible;
+    padding: var(--dvs-sp-4) var(--dvs-sp-3);
+  }
+  .davix-admin-nav {
+    flex-direction: row;
+    padding: 0 var(--dvs-sp-2);
+    gap: 0;
+  }
+  .davix-admin-nav-item {
+    flex-shrink: 0;
+    white-space: nowrap;
+    border-left: 0;
+    border-bottom: 2px solid transparent;
+    padding: 8px 14px;
+    font-size: var(--dvs-text-base);
+    gap: 6px;
+  }
+  .davix-admin-nav-item.is-active {
+    border-left-color: transparent;
+    border-bottom-color: var(--dvs-blue);
+  }
+  .davix-admin-nav-label {
+    display: inline;
+    opacity: 1;
+    width: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .davix-admin-header-plan { display: none; }
+}
+
+@media (max-width: 480px) {
+  /* The tab bar's scrollbar stays visible: it is the only hint that more tabs are off-screen. */
+  .davix-admin-header-info { max-width: calc(100vw - 120px); }
+  .davix-admin-content { padding: var(--dvs-sp-2) var(--dvs-sp-2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .davix-admin-sidebar,
+  .davix-h2i-chip,
+  .davix-admin-header-link,
+  .davix-admin-nav-item,
+  .dvs-switch-ui,
+  .dvs-switch-ui::after {
+    transition: none !important;
+  }
+  .dvs-skeleton {
+    animation: none !important;
+  }
+}
+

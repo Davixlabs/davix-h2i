@@ -1,0 +1,270 @@
+/* ── FORM FIELDS ──────────────────────────────────────────────── */
+.davix-admin input[type="text"],
+.davix-admin input[type="email"],
+.davix-admin input[type="url"],
+.davix-admin input[type="number"],
+.davix-admin input[type="password"],
+.davix-admin input[type="search"],
+.davix-admin select,
+.davix-admin textarea {
+  background: var(--dvs-surface-3) !important;
+  border: 1px solid var(--dvs-border-strong) !important;
+  color: var(--dvs-text-primary) !important;
+  border-radius: var(--dvs-radius) !important;
+  box-shadow: none !important;
+  font-size: 13px;
+  padding: 6px 10px;
+  min-height: var(--dvs-control-height);
+  line-height: 1.4;
+}
+.davix-admin input[type="text"]:focus,
+.davix-admin input[type="email"]:focus,
+.davix-admin input[type="url"]:focus,
+.davix-admin input[type="number"]:focus,
+.davix-admin input[type="password"]:focus,
+.davix-admin input[type="search"]:focus,
+.davix-admin select:focus,
+.davix-admin textarea:focus {
+  border-color: var(--dvs-blue) !important;
+  box-shadow: 0 0 0 2px rgba(77, 163, 255, 0.20) !important;
+  color: #fff !important;
+  outline: none !important;
+}
+.davix-admin input::placeholder,
+.davix-admin textarea::placeholder {
+  color: var(--dvs-text-muted) !important;
+}
+.davix-admin input:disabled,
+.davix-admin select:disabled,
+.davix-admin textarea:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+.davix-admin input:read-only,
+.davix-admin textarea:read-only {
+  opacity: 0.75;
+  cursor: default;
+}
+
+/* Autofill override */
+.davix-admin input:-webkit-autofill,
+.davix-admin input:-webkit-autofill:hover,
+.davix-admin input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--dvs-surface-3) inset !important;
+  -webkit-text-fill-color: var(--dvs-text-primary) !important;
+  caret-color: var(--dvs-text-primary);
+  border-radius: var(--dvs-radius) !important;
+}
+
+/* Checkbox */
+.davix-admin input[type="checkbox"] {
+  accent-color: var(--dvs-blue);
+}
+
+/* Regular/large text */
+.davix-admin .regular-text {
+  width: 25em;
+}
+.davix-admin .large-text {
+  width: 100%;
+}
+
+/* Textarea code */
+.davix-admin textarea.code,
+.davix-admin textarea[name*="html"],
+.davix-admin textarea[name*="css"] {
+  font-family: var(--dvs-font-mono) !important;
+  font-size: 12px !important;
+  line-height: 1.6;
+}
+
+/* ── TOGGLE SWITCH ────────────────────────────────────────────── */
+.dvs-switch {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+}
+.dvs-switch input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.dvs-switch-ui {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  border-radius: var(--dvs-radius-full);
+  background: rgba(255,255,255,0.12);
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+.dvs-switch-ui::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
+}
+.dvs-switch input:checked + .dvs-switch-ui {
+  background: linear-gradient(135deg, #4da3ff, #ff64b4);
+  box-shadow: 0 0 10px rgba(255, 100, 180, 0.18);
+}
+.dvs-switch input:checked + .dvs-switch-ui::after {
+  transform: translateX(18px);
+}
+.dvs-switch input:focus-visible + .dvs-switch-ui {
+  box-shadow: 0 0 0 3px rgba(255, 100, 180, 0.28);
+}
+.dvs-switch input:disabled + .dvs-switch-ui {
+  opacity: .48;
+  cursor: not-allowed;
+}
+.dvs-switch-label {
+  font-size: 13px;
+  color: var(--dvs-text-primary);
+}
+
+/* ── ICON BUTTON ──────────────────────────────────────────────── */
+.dvs-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: var(--dvs-radius);
+  background: var(--dvs-surface-3);
+  border: 1px solid var(--dvs-border-strong);
+  color: var(--dvs-text-secondary);
+  cursor: pointer;
+  transition: all var(--dvs-ease);
+}
+.dvs-icon-btn:hover {
+  background: var(--dvs-surface-4);
+  color: #fff;
+  border-color: rgba(255,255,255,0.18);
+}
+.dvs-icon-btn:focus-visible {
+  outline: 2px solid var(--dvs-blue);
+  outline-offset: 1px;
+}
+.dvs-icon-btn .dashicons {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+/* Ghost variant — no persistent background/border; used for editor
+   toolbar actions (e.g. the full-screen expand control) where a
+   solid button chip would be visually heavy. */
+.dvs-icon-btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--dvs-text-muted);
+}
+.dvs-icon-btn--ghost:hover {
+  background: rgba(77, 163, 255, 0.10);
+  border-color: rgba(77, 163, 255, 0.20);
+  color: var(--dvs-blue);
+}
+.dvs-icon-btn--ghost:focus-visible {
+  background: rgba(77, 163, 255, 0.10);
+  color: var(--dvs-blue);
+}
+
+/* ── CANONICAL SCROLLBAR ──────────────────────────────────────────
+   Reusable dark scrollbar for editors, drawer bodies, and any other
+   internally-scrolling Davix surface. */
+.dvs-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--dvs-surface-5) var(--dvs-surface-2);
+}
+.dvs-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.dvs-scrollbar::-webkit-scrollbar-track {
+  background: var(--dvs-surface-2);
+  border-radius: var(--dvs-radius-full);
+}
+.dvs-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--dvs-surface-5);
+  border-radius: var(--dvs-radius-full);
+  border: 2px solid var(--dvs-surface-2);
+}
+.dvs-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--dvs-blue);
+}
+.dvs-code-editor-textarea,
+.dvs-fullscreen-editor-textarea,
+.dvs-drawer-body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--dvs-surface-5) var(--dvs-surface-2);
+}
+.dvs-code-editor-textarea::-webkit-scrollbar,
+.dvs-fullscreen-editor-textarea::-webkit-scrollbar,
+.dvs-drawer-body::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.dvs-code-editor-textarea::-webkit-scrollbar-track,
+.dvs-fullscreen-editor-textarea::-webkit-scrollbar-track,
+.dvs-drawer-body::-webkit-scrollbar-track {
+  background: var(--dvs-surface-2);
+  border-radius: var(--dvs-radius-full);
+}
+.dvs-code-editor-textarea::-webkit-scrollbar-thumb,
+.dvs-fullscreen-editor-textarea::-webkit-scrollbar-thumb,
+.dvs-drawer-body::-webkit-scrollbar-thumb {
+  background: var(--dvs-surface-5);
+  border-radius: var(--dvs-radius-full);
+  border: 2px solid var(--dvs-surface-2);
+}
+.dvs-code-editor-textarea::-webkit-scrollbar-thumb:hover,
+.dvs-fullscreen-editor-textarea::-webkit-scrollbar-thumb:hover,
+.dvs-drawer-body::-webkit-scrollbar-thumb:hover {
+  background: var(--dvs-blue);
+}
+
+/* ── FIELD DIVIDER (used between the HTML/CSS rows in the merged
+   H2I "Template and Styling" card) ─────────────────────────────── */
+.dvs-field-divider {
+  border-top: 1px solid var(--dvs-border);
+}
+.dvs-field-divider > th,
+.dvs-field-divider > td {
+  padding-top: 20px !important;
+}
+
+/* ── CODE EDITOR (inline, in-card) ───────────────────────────────
+   Larger, editor-first layout for HTML/CSS textareas. */
+.dvs-code-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.dvs-code-editor-toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+.dvs-code-editor-textarea,
+.davix-admin textarea.dvs-code-editor-textarea {
+  width: 100% !important;
+  min-height: 320px;
+  resize: vertical;
+  font-family: var(--dvs-font-mono) !important;
+  font-size: 13px !important;
+  line-height: 1.7 !important;
+  padding: 14px !important;
+  background: var(--dvs-surface-3) !important;
+  border: 1px solid var(--dvs-border-strong) !important;
+  border-radius: var(--dvs-radius) !important;
+  color: var(--dvs-text-primary) !important;
+  tab-size: 2;
+}
+

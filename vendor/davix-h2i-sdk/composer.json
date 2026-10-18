@@ -1,0 +1,18 @@
+{
+  "name": "davix/h2i-sdk",
+  "description": "Official PHP SDK for the Davix H2I API. Typed methods, machine-readable metadata (enums, minimum/maximum, defaults), structured exceptions and a safe generic request() -- all generated from the canonical Davix H2I contract.",
+  "type": "library",
+  "license": "proprietary",
+  "version": "1.2.0",
+  "require": {
+    "php": ">=7.4",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "classmap": ["src/"]
+  },
+  "scripts": {
+    "test": "php tests/run.php"
+  }
+}

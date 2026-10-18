@@ -1,0 +1,219 @@
+/* ── BRANDED ACTION BUTTON ────────────────────────────────────────
+   Base → branded (blue-to-pink) → pink-emphasis variant. */
+.dvs-branded-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  min-height: 34px;
+  border-radius: var(--dvs-radius);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--dvs-blue), var(--dvs-pink));
+  box-shadow: 0 2px 10px rgba(77, 163, 255, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+.dvs-branded-btn:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 4px 16px rgba(255, 100, 180, 0.30);
+  color: #fff;
+}
+.dvs-branded-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.dvs-branded-btn .dashicons {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+}
+.dvs-branded-btn--pink {
+  background: linear-gradient(135deg, var(--dvs-blue-dark) 0%, var(--dvs-pink) 55%, var(--dvs-pink-dark) 100%);
+  box-shadow: 0 2px 10px rgba(252, 0, 130, 0.30);
+}
+.dvs-branded-btn--pink:hover {
+  box-shadow: 0 4px 18px rgba(252, 0, 130, 0.40);
+}
+.dvs-branded-btn:disabled,
+.dvs-branded-btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: none;
+}
+.dvs-branded-btn.is-loading {
+  opacity: 0.75;
+  cursor: wait;
+}
+
+/* ── BUTTONS ──────────────────────────────────────────────────── */
+.davix-admin .dvs-btn,
+.davix-admin .button,
+.davix-admin .button-secondary {
+  background: var(--dvs-surface-3) !important;
+  border: 1px solid var(--dvs-border-strong) !important;
+  color: var(--dvs-text-primary) !important;
+  border-radius: var(--dvs-radius) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transition: all 0.15s ease;
+  min-height: var(--dvs-control-height);
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+.davix-admin .dvs-btn:hover,
+.davix-admin .button:hover {
+  background: var(--dvs-surface-4) !important;
+  border-color: rgba(255,255,255,0.18) !important;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+.davix-admin .dvs-btn--primary,
+.davix-admin .button-primary {
+  background: var(--dvs-blue) !important;
+  border-color: var(--dvs-blue) !important;
+  color: #0b0d10 !important;
+  font-weight: 600 !important;
+}
+.davix-admin .dvs-btn--primary:hover,
+.davix-admin .button-primary:hover {
+  background: var(--dvs-blue-dark) !important;
+  border-color: var(--dvs-blue-dark) !important;
+  color: #fff !important;
+}
+.davix-admin .dvs-btn--danger {
+  background: var(--dvs-danger-soft) !important;
+  border-color: rgba(239,68,68,0.30) !important;
+  color: var(--dvs-danger-text) !important;
+}
+.davix-admin .dvs-btn--danger:hover {
+  background: var(--dvs-danger) !important;
+  border-color: var(--dvs-danger) !important;
+  color: #fff !important;
+}
+.davix-admin .dvs-btn:disabled,
+.davix-admin .button:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+.davix-admin .dvs-btn--secondary {
+  background: var(--dvs-surface-3) !important;
+  border-color: var(--dvs-border-strong) !important;
+  color: var(--dvs-text-primary) !important;
+}
+
+/* ── SAVE BUTTON (canonical) ──────────────────────────────────── */
+.dvs-save-button {
+  background: var(--dvs-blue) !important;
+  border-color: var(--dvs-blue) !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  color: #0b0d10 !important;
+  min-height: 36px !important;
+  padding: 0 14px !important;
+  border-radius: var(--dvs-radius) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+}
+.dvs-save-button:hover {
+  background: var(--dvs-blue-dark) !important;
+  border-color: var(--dvs-blue-dark) !important;
+  color: #fff !important;
+}
+
+/* Settings-page top "Save Settings" / "Confirm" action — migrated verbatim
+   from the legacy davix-h2i-admin-header.css (deleted; only rule from that
+   file still live anywhere in the plugin, confirmed by disabling it and
+   diffing computed styles across every settings tab). Distinct from the
+   flat-blue .dvs-save-button used in the Media Library drawer — kept as-is
+   rather than unified, since this task only removes legacy files, it does
+   not redesign working save-button chrome. */
+.davix-h2i-settings-screen .davix-h2i-save-button.button,
+.davix-h2i-settings-screen .davix-h2i-save-button.button-primary,
+.davix-h2i-settings-screen input.davix-h2i-save-button.button,
+.davix-h2i-settings-screen input.davix-h2i-save-button.button-primary {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  background: linear-gradient(135deg, rgba(31, 37, 62, 0.95), rgba(14, 18, 34, 0.96)) !important;
+  border: 1px solid rgba(0, 111, 230, 0.5) !important;
+  box-shadow: 0 10px 24px rgba(0, 111, 230, 0.35), 0 0 18px rgba(0, 111, 230, 0.25) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 600 !important;
+}
+.davix-h2i-settings-screen .davix-h2i-save-button.button:hover,
+.davix-h2i-settings-screen .davix-h2i-save-button.button:focus,
+.davix-h2i-settings-screen .davix-h2i-save-button.button:focus-visible,
+.davix-h2i-settings-screen .davix-h2i-save-button.button-primary:hover,
+.davix-h2i-settings-screen .davix-h2i-save-button.button-primary:focus,
+.davix-h2i-settings-screen .davix-h2i-save-button.button-primary:focus-visible,
+.davix-h2i-settings-screen input.davix-h2i-save-button.button:hover,
+.davix-h2i-settings-screen input.davix-h2i-save-button.button:focus,
+.davix-h2i-settings-screen input.davix-h2i-save-button.button:focus-visible,
+.davix-h2i-settings-screen input.davix-h2i-save-button.button-primary:hover,
+.davix-h2i-settings-screen input.davix-h2i-save-button.button-primary:focus,
+.davix-h2i-settings-screen input.davix-h2i-save-button.button-primary:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgba(0, 111, 230, 0.45), 0 0 22px rgba(0, 111, 230, 0.35) !important;
+}
+
+/* ── SETTINGS ACTIONS ─────────────────────────────────────────── */
+.dvs-settings-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--dvs-border);
+}
+.dvs-settings-actions .dvs-btn:not(.dvs-btn--primary) {
+  background: var(--dvs-surface-3) !important;
+  border: 1px solid var(--dvs-border-strong) !important;
+  color: var(--dvs-text-primary) !important;
+  min-height: 36px !important;
+  padding: 0 14px !important;
+  border-radius: var(--dvs-radius) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+}
+
+/* ── NOTICES ──────────────────────────────────────────────────── */
+.davix-admin .notice,
+.davix-admin div.notice {
+  background: var(--dvs-surface-2) !important;
+  border-left-color: var(--dvs-blue) !important;
+  color: var(--dvs-text-primary) !important;
+  box-shadow: none !important;
+  border-radius: 0 var(--dvs-radius-sm) var(--dvs-radius-sm) 0;
+  margin: 16px 0 !important;
+  padding: 10px 14px !important;
+}
+.davix-admin .notice-success { border-left-color: var(--dvs-success) !important; }
+.davix-admin .notice-warning { border-left-color: var(--dvs-warning) !important; }
+.davix-admin .notice-error   { border-left-color: var(--dvs-danger) !important; }
+.davix-admin .notice p { color: var(--dvs-text-primary) !important; margin: 0; }
+.davix-admin .notice-dismiss::before { color: var(--dvs-text-muted) !important; }
+

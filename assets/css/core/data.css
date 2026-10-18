@@ -1,0 +1,255 @@
+/* Components added in 2.0 on top of the original design: sidebar groups, stat cards, progress bars, data tables, filters.
+   Built only from the existing --dvs-* tokens so they sit naturally next to the original panels and cards. */
+
+.davix-admin-nav-group {
+  padding: 14px 14px 4px;
+  font-size: var(--dvs-text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dvs-text-muted);
+}
+.davix-admin-sidebar.is-collapsed .davix-admin-nav-group { display: none; }
+@media (max-width: 960px) {
+  .davix-admin-nav-group { display: none; }
+}
+
+.dvx-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: var(--dvs-sp-3);
+}
+.dvx-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--dvs-sp-4);
+  background: var(--dvs-surface-2);
+  border: 1px solid var(--dvs-border);
+  border-radius: var(--dvs-radius-md);
+}
+.dvx-stat__label { font-size: var(--dvs-text-sm); color: var(--dvs-text-secondary); }
+.dvx-stat__value { font-size: var(--dvs-text-2xl); color: var(--dvs-text-heading); line-height: 1.2; }
+.dvx-stat__note { font-size: var(--dvs-text-xs); color: var(--dvs-text-muted); }
+
+.dvx-bar {
+  height: 8px;
+  background: var(--dvs-surface-4);
+  border-radius: var(--dvs-radius-full);
+  overflow: hidden;
+}
+.dvx-bar > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--dvs-blue), var(--dvs-pink));
+  border-radius: inherit;
+  transition: width 0.3s ease;
+}
+.dvx-bar__label { font-size: var(--dvs-text-sm); color: var(--dvs-text-secondary); }
+
+.dvx-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dvs-sp-2);
+  margin-bottom: var(--dvs-sp-4);
+}
+.dvx-toolbar .davix-h2i-input,
+.dvx-toolbar .davix-h2i-select { width: auto; min-width: 140px; }
+.dvx-toolbar__spacer { flex: 1; }
+
+.dvx-table-wrap { overflow-x: auto; border: 1px solid var(--dvs-border); border-radius: var(--dvs-radius-md); }
+.dvx-table { width: 100%; border-collapse: collapse; font-size: var(--dvs-text-base); }
+.dvx-table th {
+  text-align: left;
+  padding: 10px 14px;
+  color: var(--dvs-text-secondary);
+  font-weight: 600;
+  font-size: var(--dvs-text-sm);
+  background: var(--dvs-surface-2);
+  border-bottom: 1px solid var(--dvs-border);
+  white-space: nowrap;
+}
+.dvx-table td {
+  padding: 10px 14px;
+  color: var(--dvs-text-primary);
+  border-bottom: 1px solid var(--dvs-border);
+  vertical-align: middle;
+}
+.dvx-table tbody tr:last-child td { border-bottom: 0; }
+.dvx-table tbody tr[data-dvx-row] { cursor: pointer; }
+.dvx-table tbody tr[data-dvx-row]:hover td { background: var(--dvs-info-soft); }
+.dvx-table .dvx-muted { color: var(--dvs-text-muted); font-size: var(--dvs-text-sm); }
+.dvx-table .dvx-num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.dvx-pager { display: flex; align-items: center; justify-content: space-between; gap: var(--dvs-sp-3); margin-top: var(--dvs-sp-4); color: var(--dvs-text-secondary); font-size: var(--dvs-text-sm); }
+.dvx-pager__buttons { display: flex; gap: var(--dvs-sp-2); }
+
+.dvx-thumb { width: 40px; height: 40px; border-radius: var(--dvs-radius-sm); object-fit: cover; background: var(--dvs-surface-4); display: block; }
+.dvx-cell { display: flex; align-items: center; gap: var(--dvs-sp-3); min-width: 0; }
+.dvx-cell__text { min-width: 0; }
+.dvx-cell__title { color: var(--dvs-text-heading); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 320px; }
+
+.dvx-detail dl { display: grid; grid-template-columns: 140px 1fr; gap: 8px var(--dvs-sp-4); margin: 0 0 var(--dvs-sp-4); }
+.dvx-detail dt { color: var(--dvs-text-secondary); font-size: var(--dvs-text-sm); }
+.dvx-detail dd { margin: 0; color: var(--dvs-text-primary); word-break: break-word; }
+.dvx-detail pre {
+  margin: 0 0 var(--dvs-sp-4);
+  padding: var(--dvs-sp-3);
+  background: var(--dvs-surface-1);
+  border: 1px solid var(--dvs-border);
+  border-radius: var(--dvs-radius);
+  font-family: var(--dvs-font-mono);
+  font-size: var(--dvs-text-sm);
+  white-space: pre-wrap;
+  max-height: 260px;
+  overflow: auto;
+}
+.dvx-detail h4 { margin: var(--dvs-sp-4) 0 var(--dvs-sp-2); color: var(--dvs-text-heading); font-size: var(--dvs-text-md); }
+.dvx-detail .dvx-outputs { display: flex; flex-wrap: wrap; gap: var(--dvs-sp-2); margin-bottom: var(--dvs-sp-4); }
+.dvx-detail .dvx-outputs img { width: 96px; height: 96px; object-fit: cover; border-radius: var(--dvs-radius); border: 1px solid var(--dvs-border); }
+
+.dvx-op-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: var(--dvs-sp-3); }
+.dvx-op {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--dvs-sp-4);
+  text-align: left;
+  background: var(--dvs-surface-2);
+  border: 1px solid var(--dvs-border);
+  border-radius: var(--dvs-radius-md);
+  color: var(--dvs-text-primary);
+  cursor: pointer;
+  transition: border-color var(--dvs-ease), background var(--dvs-ease);
+}
+.dvx-op:hover { border-color: var(--dvs-border-blue); background: var(--dvs-surface-3); }
+.dvx-op.is-selected { border-color: var(--dvs-blue); box-shadow: var(--dvs-shadow-glow-blue); }
+.dvx-op[disabled], .dvx-op.is-locked { opacity: 0.55; cursor: not-allowed; }
+.dvx-op__title { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-weight: 600; color: var(--dvs-text-heading); }
+.dvx-op__desc { font-size: var(--dvs-text-sm); color: var(--dvs-text-secondary); }
+.dvx-op__cost { font-size: var(--dvs-text-xs); color: var(--dvs-text-muted); }
+
+/* The steps of a run (1 files, 2 action, 3 options) are stacked in one readable column, never side by side. */
+.dvx-run { display: flex; flex-direction: column; gap: var(--dvs-sp-4); max-width: 980px; }
+.dvx-run > div { min-width: 0; display: flex; flex-direction: column; gap: var(--dvs-sp-4); }
+.dvx-picked { display: flex; flex-wrap: wrap; gap: var(--dvs-sp-2); margin: var(--dvs-sp-3) 0; }
+.dvx-picked__item { position: relative; width: 72px; }
+.dvx-picked__item img, .dvx-picked__item .dvx-picked__file {
+  width: 72px; height: 72px; object-fit: cover; border-radius: var(--dvs-radius);
+  border: 1px solid var(--dvs-border); background: var(--dvs-surface-4);
+  display: flex; align-items: center; justify-content: center; font-size: var(--dvs-text-xs); color: var(--dvs-text-secondary);
+}
+.dvx-picked__remove {
+  position: absolute; top: -6px; right: -6px; width: 20px; height: 20px; border-radius: 50%;
+  border: 0; background: var(--dvs-danger); color: #fff; cursor: pointer; line-height: 1; font-size: 14px;
+}
+.dvx-results { display: flex; flex-direction: column; gap: var(--dvs-sp-2); margin-top: var(--dvs-sp-4); }
+.dvx-result {
+  display: flex; align-items: center; gap: var(--dvs-sp-3); padding: var(--dvs-sp-3);
+  background: var(--dvs-surface-2); border: 1px solid var(--dvs-border); border-radius: var(--dvs-radius);
+}
+.dvx-result.is-error { border-color: rgba(239, 68, 68, 0.4); }
+.dvx-result img { width: 48px; height: 48px; object-fit: cover; border-radius: var(--dvs-radius-sm); }
+.dvx-result__body { flex: 1; min-width: 0; font-size: var(--dvs-text-base); }
+.dvx-result__text { white-space: pre-wrap; color: var(--dvs-text-primary); margin-top: 4px; }
+
+.dvx-callout {
+  display: flex; gap: var(--dvs-sp-3); align-items: flex-start;
+  padding: var(--dvs-sp-4); border-radius: var(--dvs-radius-md);
+  background: var(--dvs-info-soft); border: 1px solid var(--dvs-border-blue); color: var(--dvs-text-primary);
+}
+.dvx-callout.is-warning { background: var(--dvs-warning-soft); border-color: rgba(245, 158, 11, 0.35); }
+.dvx-callout.is-danger { background: var(--dvs-danger-soft); border-color: rgba(239, 68, 68, 0.35); }
+.dvx-callout p { margin: 0; }
+.dvx-callout__actions { margin-left: auto; display: flex; gap: var(--dvs-sp-2); }
+
+.dvx-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--dvs-sp-4); }
+@media (max-width: 1100px) { .dvx-grid-2 { grid-template-columns: 1fr; } }
+
+.dvx-side-drawer { width: min(560px, 100%) !important; max-width: 560px !important; min-width: 0 !important; }
+.dvx-side-drawer__body { padding: 20px 24px !important; }
+.dvx-side-drawer__foot { flex-wrap: wrap !important; }
+
+.davix-h2i-checkbox-list { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.davix-h2i-checkbox-item { display: inline-flex; align-items: center; gap: 6px; color: var(--dvs-text-primary); }
+
+.dvx-locked-note { font-size: var(--dvs-text-sm); color: var(--dvs-warning-text); }
+.dvx-hidden { display: none !important; }
+
+/* ── SPACING BETWEEN SIBLING CONTAINERS ─────────────────────────
+   Panels and cards that follow each other anywhere on a screen (grid columns, forms, sub-tab panels) keep a 16px gap.
+   Inside .dvs-settings-stack the flex gap already does this, so it is switched off there to avoid doubling it. */
+.davix-admin .dvs-settings-card:not(:first-child),
+.davix-admin .dvs-panel:not(:first-child),
+.davix-admin form + .dvs-settings-card,
+.davix-admin .dvs-settings-card + form,
+.davix-admin .dvx-callout + .dvs-settings-card {
+  margin-top: var(--dvs-sp-4);
+}
+.davix-admin .dvs-settings-stack > .dvs-settings-card:not(:first-child),
+.davix-admin .dvs-settings-stack > .dvs-panel:not(:first-child) {
+  margin-top: 0;
+}
+.davix-admin .dvx-grid-2 { align-items: start; }
+
+/* ── MEDIA LIBRARY DRAWER BODY ──────────────────────────────────
+   Every tab (Image, Actions, History, ...) gets the same inset, so fields never touch the drawer's edges. */
+#davix-h2i-modal [data-dvx-drawer-panel] { padding: 20px 24px 8px; }
+#davix-h2i-modal .dvx-results { padding: 0 24px 20px; margin-top: 0; }
+#davix-h2i-modal .davix-h2i-tab-section { padding: 0; }
+#davix-h2i-modal .form-table,
+#davix-h2i-modal .form-table tbody,
+#davix-h2i-modal .form-table tr,
+#davix-h2i-modal .form-table th,
+#davix-h2i-modal .form-table td { display: block; width: 100%; text-align: left; box-sizing: border-box; }
+#davix-h2i-modal .form-table th { padding: 10px 0 6px; }
+#davix-h2i-modal .form-table td { padding: 0 0 10px; }
+#davix-h2i-modal .form-table input[type="text"],
+#davix-h2i-modal .form-table input[type="number"],
+#davix-h2i-modal .form-table input[type="url"],
+#davix-h2i-modal .form-table select,
+#davix-h2i-modal .form-table textarea { width: 100%; max-width: none; }
+
+/* ── LONG TEXT FIELDS (HTML, CSS, JSON, chart data...) ──────────
+   Label on top, expand button on the same line at the far end, the field below it stretched from edge to edge. */
+.davix-admin .davix-h2i-field-row--stacked > td { display: block; width: 100%; padding: 0; }
+.davix-admin .davix-h2i-field-row--stacked .davix-h2i-field-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 6px;
+}
+.davix-admin .davix-h2i-field-row--stacked .davix-h2i-label { margin: 0; }
+.davix-admin .davix-h2i-field-row--stacked textarea { display: block; width: 100%; max-width: none; box-sizing: border-box; }
+
+/* ── EDITOR DRAWERS (History details, Library presets and templates) ── */
+.dvx-side-drawer--wide { width: min(680px, 100%) !important; max-width: 680px !important; }
+.dvx-side-drawer .form-table,
+.dvx-side-drawer .form-table tbody,
+.dvx-side-drawer .form-table tr,
+.dvx-side-drawer .form-table th,
+.dvx-side-drawer .form-table td { display: block; width: 100%; text-align: left; box-sizing: border-box; }
+.dvx-side-drawer .form-table th { padding: 10px 0 6px; }
+.dvx-side-drawer .form-table td { padding: 0 0 10px; }
+.dvx-side-drawer .form-table input[type="text"],
+.dvx-side-drawer .form-table input[type="number"],
+.dvx-side-drawer .form-table input[type="url"],
+.dvx-side-drawer .form-table select,
+.dvx-side-drawer .form-table textarea,
+.dvx-side-drawer .davix-h2i-input,
+.dvx-side-drawer .davix-h2i-select,
+.dvx-side-drawer .davix-h2i-textarea { width: 100%; max-width: none; box-sizing: border-box; }
+.dvx-side-drawer .davix-h2i-field-group { margin-bottom: 16px; }
+.dvx-side-drawer .davix-h2i-field-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 6px; }
+.dvx-side-drawer .davix-h2i-field-header .davix-h2i-label { margin: 0; }
+.dvx-row-click { cursor: pointer; }
+.dvx-row-click:hover { background: rgba(77, 163, 255, 0.05); }
+.dvx-var { display: grid; grid-template-columns: 1fr; gap: 8px; padding: 12px; margin-bottom: 8px; background: var(--dvs-surface-2); border: 1px solid var(--dvs-border); border-radius: var(--dvs-radius); }
+.dvx-var__name { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.dvx-var__req { display: inline-flex; align-items: center; gap: 6px; font-size: var(--dvs-text-sm); color: var(--dvs-text-secondary); }
+.dvx-side-drawer .davix-h2i-field-group { display: flex; flex-direction: column; align-items: stretch; gap: 6px; }
+.dvx-side-drawer .form-table tr { margin: 0 0 6px !important; display: block !important; }
+.dvx-side-drawer [hidden] { display: none !important; }
+.dvx-op-grid[hidden] { display: none !important; }
+.dvx-run > [hidden] { display: none !important; }
+.dvx-thumb--none { display: flex; align-items: center; justify-content: center; color: var(--dvs-text-muted); }
+.dvx-thumb--none .dashicons { width: 20px; height: 20px; font-size: 20px; }
+.dvx-detail .dvx-output-gone { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; width: 96px; min-height: 96px; padding: 8px; box-sizing: border-box; text-align: center; font-size: var(--dvs-text-xs); color: var(--dvs-text-muted); border: 1px dashed var(--dvs-border); border-radius: var(--dvs-radius); }

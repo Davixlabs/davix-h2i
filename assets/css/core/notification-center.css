@@ -1,0 +1,288 @@
+/* Notification capsule: WordPress admin notices and the plugin's own messages collect in a bottom-right pill that opens a small
+   non-modal drawer, so nothing pushes the plugin header down. Same look as the other Davix plugins. */
+
+/* ── ROOT CAUSE FIX: take the notice tray out of the page flow ──────
+   The tray still exists as the DOM collection point notices land in
+   (server-rendered ones from PHP, or relocated by the shared
+   davix-notice-relocator sweep), but davix-notification-center.js moves
+   every child out into drawer cards, so nothing is lost by hiding the
+   now-empty container. This removes the *external* gap between the
+   WordPress toolbar and the plugin's own header without touching that
+   header's own internal padding. */
+.davix-admin-notice-tray {
+  display: none !important;
+}
+
+/* ── DOCK — fixed anchor for the trigger and the panel ── */
+.davix-nc {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 100000;
+  font-family: var(--dvs-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  color: var(--dvs-text-primary, #e4e8ee);
+}
+
+
+/* ── TRIGGER — horizontal pill, not a circular bubble. Only ever
+   rendered when there's at least one notification (see
+   `trigger.hidden` in the JS); fully removed from layout otherwise,
+   never just faded, so it never occupies bottom-right space it isn't
+   using. The gradient is its one, permanent look — idle, hover, and
+   open all read the same, no color swap on interaction. ───────────── */
+.davix-nc-trigger {
+  position: relative;
+  height: var(--dvs-nc-trigger-h, 30px);
+  padding: 0 13px;
+  max-width: min(320px, calc(100vw - 40px));
+  border-radius: var(--dvs-radius-full, 9999px);
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, var(--dvs-blue, #4da3ff), var(--dvs-pink, #ff64b4));
+  color: #0b0d10;
+  box-shadow: var(--dvs-shadow-md, 0 4px 16px rgba(0, 0, 0, 0.4));
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform var(--dvs-ease, 0.15s ease), box-shadow var(--dvs-ease, 0.15s ease);
+}
+
+.davix-nc-trigger[hidden] { display: none; }
+
+.davix-nc-trigger .dashicons {
+  font-size: 13px;
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.davix-nc-trigger:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--dvs-shadow-md, 0 4px 16px rgba(0, 0, 0, 0.4)), var(--dvs-shadow-glow-blue, 0 0 0 2px rgba(77, 163, 255, 0.35));
+}
+
+.davix-nc-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--dvs-shadow-md, 0 4px 16px rgba(0, 0, 0, 0.4)), var(--dvs-shadow-glow-blue, 0 0 0 2px rgba(77, 163, 255, 0.35));
+}
+
+.davix-nc-trigger-count {
+  font-size: var(--dvs-text-xs, 11px);
+  font-weight: 700;
+  line-height: 1;
+  min-width: 1ch;
+  text-align: center;
+}
+
+/* ── PANEL ────────────────────────────────────────────────────── */
+.davix-nc-panel {
+  position: fixed;
+  right: 20px;
+  bottom: calc(20px + var(--dvs-nc-trigger-h, 30px) + 12px);
+  width: min(400px, calc(100vw - 40px));
+  max-height: min(70vh, 640px);
+  display: flex;
+  flex-direction: column;
+  background: var(--dvs-surface-1, #161a22);
+  border: 1px solid var(--dvs-border-strong, rgba(255, 255, 255, 0.14));
+  border-radius: var(--dvs-radius-lg, 14px);
+  box-shadow: var(--dvs-shadow-lg, 0 8px 32px rgba(0, 0, 0, 0.5));
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+  transform-origin: bottom right;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+}
+
+.davix-nc.is-open .davix-nc-panel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+@media (max-width: 480px) {
+  .davix-nc-panel {
+    width: calc(100vw - 24px);
+    right: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .davix-nc-trigger,
+  .davix-nc-panel {
+    transition: none !important;
+  }
+}
+
+.davix-nc-trigger:focus-visible,
+.davix-nc-card-toggle:focus-visible,
+.davix-nc-card-dismiss:focus-visible {
+  outline: 2px solid var(--dvs-blue, #4da3ff);
+  outline-offset: 2px;
+}
+
+/* ── LIST — the panel opens straight into content: the count already
+   lives on the trigger pill, so no separate title/subtitle header row
+   inside the panel itself (the page's own plugin header is untouched —
+   this is only the small drawer's internal header). ────────────────── */
+.davix-nc-list {
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  scrollbar-color: var(--dvs-surface-5, #2a3140) var(--dvs-bg-dark, #12151B);
+}
+
+.davix-nc-list[hidden] { display: none; }
+
+/* ── EMPTY STATE ──────────────────────────────────────────────── */
+.davix-nc-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 6px;
+  padding: 40px 20px;
+  color: var(--dvs-text-secondary, #9ca3af);
+}
+
+.davix-nc-empty[hidden] { display: none; }
+
+.davix-nc-empty .dashicons {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  color: var(--dvs-success, #22c55e);
+  margin-bottom: 4px;
+}
+
+.davix-nc-empty p {
+  margin: 0;
+  font-size: var(--dvs-text-sm, 12px);
+}
+
+.davix-nc-empty p:first-of-type {
+  color: var(--dvs-text-heading, #f1f4f8);
+  font-weight: 600;
+  font-size: var(--dvs-text-base, 13px);
+}
+
+/* ── CARDS ────────────────────────────────────────────────────── */
+.davix-nc-card {
+  border: 1px solid var(--dvs-border, rgba(255, 255, 255, 0.08));
+  border-left-width: 3px;
+  border-radius: var(--dvs-radius, 8px);
+  background: var(--dvs-surface-2, #1a1f28);
+  padding: 10px 12px;
+}
+
+.davix-nc-card.is-new {
+  box-shadow: 0 0 0 1px var(--dvs-border-blue, rgba(77, 163, 255, 0.20));
+}
+
+.davix-nc-card.is-info { border-left-color: var(--dvs-blue, #4da3ff); }
+.davix-nc-card.is-success { border-left-color: var(--dvs-success, #22c55e); }
+.davix-nc-card.is-warning { border-left-color: var(--dvs-warning, #f59e0b); }
+.davix-nc-card.is-error { border-left-color: var(--dvs-danger, #ef4444); }
+
+.davix-nc-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.davix-nc-card-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.davix-nc-card.is-info .davix-nc-card-icon { color: var(--dvs-blue, #4da3ff); }
+.davix-nc-card.is-success .davix-nc-card-icon { color: var(--dvs-success, #22c55e); }
+.davix-nc-card.is-warning .davix-nc-card-icon { color: var(--dvs-warning, #f59e0b); }
+.davix-nc-card.is-error .davix-nc-card-icon { color: var(--dvs-danger, #ef4444); }
+
+.davix-nc-card-copy { flex: 1; min-width: 0; }
+
+.davix-nc-card-preview {
+  margin: 0;
+  font-size: var(--dvs-text-sm, 12px);
+  line-height: 1.5;
+  color: var(--dvs-text-primary, #e4e8ee);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.davix-nc-card-dismiss {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  background: transparent;
+  color: var(--dvs-text-muted, #6b7280);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  border-radius: var(--dvs-radius-xs, 4px);
+}
+
+.davix-nc-card-dismiss:hover {
+  background: var(--dvs-surface-4, #242a36);
+  color: var(--dvs-text-primary, #e4e8ee);
+}
+
+.davix-nc-card-toggle {
+  margin-top: 6px;
+  border: 0;
+  background: transparent;
+  color: var(--dvs-blue, #4da3ff);
+  font-size: var(--dvs-text-xs, 11px);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 2px 0;
+}
+
+.davix-nc-card-toggle:hover { text-decoration: underline; }
+
+.davix-nc-card-body {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--dvs-border, rgba(255, 255, 255, 0.08));
+  max-height: 320px;
+  overflow-y: auto;
+  font-size: var(--dvs-text-sm, 12px);
+  line-height: 1.6;
+}
+
+.davix-nc-card-body[hidden] { display: none; }
+
+/* The real, moved WordPress notice node keeps its own markup — strip WP's
+   default card chrome (background/border/padding) so it reads as plain
+   content inside the card instead of a nested box-in-a-box. */
+.davix-nc-card-body .notice,
+.davix-nc-card-body .update-nag,
+.davix-nc-card-body .updated,
+.davix-nc-card-body .error {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: var(--dvs-text-primary, #e4e8ee) !important;
+}
+
+.davix-nc-card-body .notice p { color: inherit !important; }
+
+.davix-nc-card-body a { color: var(--dvs-blue, #4da3ff); }
+
+.davix-nc-card-body .button,
+.davix-nc-card-body .button-primary {
+  font-size: var(--dvs-text-sm, 12px) !important;
+}

@@ -1,0 +1,144 @@
+/* ── HELP TEXT ────────────────────────────────────────────────── */
+.davix-admin .description,
+.davix-admin p.description {
+  color: var(--dvs-text-secondary) !important;
+  font-size: 12px !important;
+  margin: 4px 0 0;
+}
+.davix-admin label {
+  color: var(--dvs-text-primary);
+}
+
+/* ── TOOLTIP ICON ──────────────────────────────────────────────── */
+/* Colors below (bg/border/color, both states) match the values that were
+   actually winning live via the legacy theme.css `.davix-h2i-theme
+   .davix-h2i-tooltip-icon` override (verified by computed-style diff before
+   deleting that file) — kept as-is rather than switched to this rule's own
+   previous (losing, unused) blue-hover values, per "don't redesign working
+   pages." Shape/layout properties are unchanged. */
+.davix-h2i-tooltip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1a1d24;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border: 1px solid #2b2f36;
+  cursor: pointer;
+  transition: all var(--dvs-ease);
+  padding: 0;
+  line-height: 1;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+.davix-h2i-tooltip-icon:hover {
+  background: var(--dvs-blue-light);
+  color: #0b0d10;
+  border-color: var(--dvs-blue-light);
+}
+.davix-h2i-tooltip-icon:focus {
+  outline: 2px solid var(--dvs-blue);
+  outline-offset: 2px;
+}
+.davix-h2i-tooltip-bubble {
+  background: var(--dvs-blue-light);
+  color: #0b0d10;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.davix-h2i-tooltip-bubble a {
+  color: #0b0d10;
+}
+
+/* ── LEGACY THEME MIGRATION (theme.css, deleted) ──────────────────
+   .davix-h2i-theme is the base text-color scope applied to both the
+   settings-page root and (historically) the drawer root. .davix-h2i-card
+   and the unscoped .davix-h2i-label had no other definition anywhere in
+   the plugin — confirmed via disable-and-diff before deleting theme.css —
+   so they are ported here verbatim rather than dropped. Colors are the
+   exact values theme.css supplied (not redesigned); dvs-* tokens are used
+   only where they are an exact match (--dvs-black === old card-bg,
+   --dvs-blue === old focus color). */
+.davix-h2i-theme {
+  color: #fff;
+}
+/* Scoped under .davix-h2i-theme (2 classes) — a bare .davix-h2i-card (1
+   class) would lose to the later-declared, equal-specificity
+   .davix-h2i-chip-fields rule (surface-1 bg) on elements carrying both
+   classes, changing the historical #0b0d10 card background. Every
+   .davix-h2i-card sits inside a .davix-h2i-theme root, so this covers all
+   real usage exactly like theme.css's original `.davix-h2i-theme
+   .davix-h2i-card` did. */
+.davix-h2i-theme .davix-h2i-card {
+  background: var(--dvs-black);
+  border: 1px solid #2b2f36;
+  border-radius: var(--dvs-radius-md);
+  padding: 16px;
+}
+/* Scoped under .davix-h2i-theme (2 classes) rather than a bare
+   .davix-h2i-label (1 class) so it beats the generic `.davix-admin label`
+   tag-selector rule above (0,1,1 specificity) on the settings page — every
+   .davix-h2i-label in the plugin sits inside a .davix-h2i-theme root
+   (settings page or drawer), so this covers all real usage. */
+.davix-h2i-theme .davix-h2i-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  display: inline-flex !important;
+  align-items: center;
+}
+/* Border-width/style, border-radius/padding/box-sizing (not background or
+   border-color — those are supplied elsewhere, e.g. admin-settings.css's
+   higher-specificity .davix-h2i-tab-panel input[type="text"] rule and the
+   settings-transfer file-input rule, and were already dead in theme.css
+   before this migration, confirmed live). border-width is NOT dead though:
+   the settings-transfer file input only overrides border-color, so it still
+   needs this rule's width/style to render a visible border at all. */
+.davix-h2i-theme .davix-h2i-input,
+.davix-h2i-theme .davix-h2i-select,
+.davix-h2i-theme .davix-h2i-textarea {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 6px;
+  padding: 6px 10px;
+  box-sizing: border-box;
+}
+.davix-h2i-theme .davix-h2i-input:focus,
+.davix-h2i-theme .davix-h2i-select:focus,
+.davix-h2i-theme .davix-h2i-textarea:focus {
+  outline: 2px solid var(--dvs-blue);
+  outline-offset: 1px;
+}
+.davix-h2i-theme .davix-h2i-button,
+.davix-h2i-theme .button.davix-h2i-button {
+  border-radius: 6px;
+}
+
+/* ── CODE / MONO ───────────────────────────────────────────────── */
+.davix-admin code {
+  background: var(--dvs-surface-3) !important;
+  color: var(--dvs-blue-light) !important;
+  border-radius: var(--dvs-radius-xs) !important;
+  padding: 2px 6px !important;
+  font-family: var(--dvs-font-mono) !important;
+  font-size: 12px !important;
+  border: 1px solid var(--dvs-border) !important;
+}
+
+/* ── BADGES / PILLS ───────────────────────────────────────────── */
+.dvs-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.dvs-badge--success { background: var(--dvs-success-soft); color: var(--dvs-success); }
+.dvs-badge--warning { background: var(--dvs-warning-soft); color: var(--dvs-warning); }
+.dvs-badge--danger { background: var(--dvs-danger-soft); color: var(--dvs-danger); }
+.dvs-badge--info { background: rgba(77, 163, 255, 0.12); color: var(--dvs-blue); }
+

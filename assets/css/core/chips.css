@@ -1,0 +1,103 @@
+/* ── CHIPS ─────────────────────────────────────────────────────────
+   Canonical Davix chip tokens — pixel/color-identical to the reference
+   chip-select control in Davix AI Engine's Chatbot -> OpenAI Integration
+   tab (Website Content Intelligence), davix-ai-engine/includes/ai-intelligence/
+   wci/davix-wci-options.php render_chip_select()/enqueue_chip_assets().
+   H2I keeps its own .davix-h2i-chip/-row/-select markup and JS hooks
+   (add/remove/dynamic-fields behavior is H2I-specific and unrelated to
+   WCI's simple tag list), only the visual tokens are shared. */
+.davix-h2i-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  background: #1a1f28;
+  border: 1px solid rgba(77, 163, 255, 0.30);
+  border-radius: var(--dvs-radius-full);
+  color: #cfe5ff;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.davix-h2i-chip button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0 0 4px;
+  border: none;
+  background: none;
+  color: #7dbbff;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+.davix-h2i-chip button:hover {
+  color: #fca5a5;
+}
+.davix-h2i-chip button:focus-visible {
+  outline: 2px solid var(--dvs-blue);
+  outline-offset: 2px;
+  border-radius: var(--dvs-radius-full);
+}
+.davix-h2i-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  min-height: 28px;
+}
+
+/* ── CHIP FIELDS CARD ──────────────────────────────────────────── */
+.davix-h2i-chip-fields {
+  background: var(--dvs-surface-1);
+  border: 1px solid var(--dvs-border);
+  border-radius: var(--dvs-radius-md);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.davix-h2i-chip-fields h4 {
+  color: var(--dvs-text-heading);
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.davix-h2i-chip-field-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--dvs-border);
+}
+.davix-h2i-chip-field-row:last-child {
+  border-bottom: none;
+}
+.davix-h2i-chip-field-row.is-checkbox {
+  gap: 12px;
+}
+.davix-h2i-chip-field-label {
+  font-size: 12px;
+  color: var(--dvs-text-secondary);
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.davix-h2i-chip-field-control {
+  flex: 1;
+  min-width: 0;
+}
+.davix-h2i-chip-field-control input[type="number"] {
+  width: 120px;
+}
+/* Chip field IDs are now chip-scoped (davix-h2i-image-{defaults,auto}-field-{chip}-{field})
+   to fix duplicate-id label targeting; keep the watermarkText double-width override in sync. */
+#davix-h2i-image-defaults-field-watermark-watermarkText,
+#davix-h2i-image-auto-field-watermark-watermarkText {
+  width: var(--davix-h2i-dyn-field-width-double, 100%);
+  max-width: var(--davix-h2i-dyn-field-width-double, 100%);
+}
+.davix-h2i-chip-field-control select {
+  min-width: 140px;
+}
+

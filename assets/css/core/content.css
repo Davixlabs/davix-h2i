@@ -1,0 +1,126 @@
+/* ── API KEY CARD ─────────────────────────────────────────────── */
+.davix-h2i-api-key-card {
+  background: var(--dvs-surface-2);
+  border: 1px solid var(--dvs-border);
+  border-radius: var(--dvs-radius-md);
+  padding: 16px;
+}
+.davix-h2i-api-key-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.davix-h2i-api-key-controls input[type="password"] {
+  flex: 1;
+  min-width: 0;
+}
+.davix-h2i-stored-key {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--dvs-text-muted);
+}
+.davix-h2i-api-key-extra {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--dvs-text-secondary);
+}
+.davix-h2i-api-key-link {
+  color: var(--dvs-blue);
+  text-decoration: none;
+}
+.davix-h2i-api-key-link:hover {
+  color: var(--dvs-blue-light);
+  text-decoration: underline;
+}
+
+/* ── SETTINGS TRANSFER ────────────────────────────────────────── */
+.davix-h2i-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.davix-h2i-settings-transfer__import {
+  margin-top: 12px;
+  padding: 12px;
+  background: var(--dvs-surface-2);
+  border: 1px solid var(--dvs-border);
+  border-radius: var(--dvs-radius);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── HEADINGS IN CONTENT ───────────────────────────────────────── */
+.davix-admin h1,
+.davix-admin h2,
+.davix-admin h3,
+.davix-admin h4 {
+  color: var(--dvs-text-heading);
+}
+.davix-admin p {
+  color: var(--dvs-text-primary);
+}
+
+/* ── HELP CONTENT ──────────────────────────────────────────────── */
+.davix-h2i-help-content h2 {
+  color: var(--dvs-text-heading);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+.davix-h2i-help-content h3 {
+  color: var(--dvs-text-heading);
+  font-size: 14px;
+  font-weight: 600;
+  margin: 20px 0 8px;
+}
+.davix-h2i-help-content p,
+.davix-h2i-help-content li {
+  color: var(--dvs-text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.davix-h2i-help-content ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+.davix-h2i-help-content .davix-h2i-muted {
+  color: var(--dvs-text-muted);
+}
+
+/* ── LOG VIEWER ───────────────────────────────────────────────── */
+.davix-h2i-log-viewer {
+  padding: var(--dvs-sp-5) var(--dvs-sp-6);
+}
+.davix-h2i-log-viewer h1 {
+  color: var(--dvs-text-heading);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+.davix-h2i-log-viewer pre {
+  background: var(--dvs-black);
+  color: rgba(179,215,255,0.85);
+  border: 1px solid var(--dvs-border);
+  border-radius: var(--dvs-radius-md);
+  font-family: var(--dvs-font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 16px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  max-height: 70vh;
+  overflow-y: auto;
+  margin-top: 12px;
+}
+
+/* ── OUTPUT SUFFIX FIELD ──────────────────────────────────────── */
+.davix-h2i-output-suffix-field {
+  margin-top: 8px;
+}
+
+/* ── HIDDEN UTILITY ───────────────────────────────────────────── */
+.davix-section--hidden { display: none !important; }
+

@@ -1,0 +1,169 @@
+/* ── MOTHER CONTAINER / PANEL ─────────────────────────────────────
+   Matches the canonical structure live in Davix Forms/Auto Reply:
+   .dvs-panel.dvs-panel-shell > .dvs-panel-header.dvs-panel-header-main
+   + .dvs-settings-stack (body) + .dvs-settings-bottom-save (footer).
+   Header/footer are joined flush to the shell — no floating inner card. */
+.dvs-panel,
+.dvs-panel-shell {
+  color: var(--dvs-text-primary);
+}
+.dvs-panel.dvs-panel-shell {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: block;
+  overflow: visible;
+  padding: 0;
+  margin-bottom: 16px;
+  background: var(--dvs-surface-1);
+  border: 1px solid var(--dvs-border);
+  border-radius: var(--dvs-radius-md);
+  box-shadow: var(--dvs-shadow-sm);
+}
+
+/* ── MOTHER PANEL HEADER (flush, joined) ─────────────────────────── */
+.dvs-panel-header.dvs-panel-header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 20px;
+  background: var(--dvs-surface-2);
+  border-bottom: 1px solid var(--dvs-border);
+}
+.dvs-panel-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.dvs-panel-title {
+  margin: 0;
+  color: var(--dvs-text-heading);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.dvs-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--dvs-sp-3);
+  flex-shrink: 0;
+}
+
+/* ── MOTHER PANEL BODY ────────────────────────────────────────── */
+.dvs-settings-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 0;
+  padding: 18px;
+}
+.dvs-panel-lead {
+  margin: 0 0 4px;
+  font-size: 12px;
+  color: var(--dvs-text-secondary);
+}
+
+/* ── MOTHER PANEL FOOTER (flush, joined) ─────────────────────────── */
+.dvs-settings-bottom-save {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: var(--dvs-sp-5) 18px var(--dvs-sp-6);
+  justify-content: flex-start;
+  border-top: 1px solid var(--dvs-border);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 782px) {
+  .dvs-panel-header.dvs-panel-header-main,
+  .dvs-settings-bottom-save {
+    padding: 12px;
+    flex-wrap: wrap;
+  }
+  .dvs-settings-stack { gap: 12px; padding: 12px; }
+}
+@media (max-width: 480px) {
+  .dvs-panel-title { font-size: 13px; }
+}
+
+/* ── CREDENTIAL CALLOUT ───────────────────────────────────────── */
+.davix-credential-callout {
+  background: var(--dvs-surface-2);
+  border: 1px solid rgba(77, 163, 255, 0.20);
+  border-radius: var(--dvs-radius-md);
+  padding: var(--dvs-sp-4);
+}
+
+/* ── SETTINGS CARD ────────────────────────────────────────────── */
+.dvs-settings-card {
+  background: var(--dvs-surface-1);
+  border: 1px solid var(--dvs-border);
+  border-radius: var(--dvs-radius-md);
+  box-shadow: var(--dvs-shadow-sm);
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+.dvs-settings-card-head {
+  background: var(--dvs-surface-2);
+  border-bottom: 1px solid var(--dvs-border);
+  padding: 12px 20px;
+}
+.dvs-settings-card-head h3 {
+  color: var(--dvs-text-heading);
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.dvs-settings-card-head p {
+  margin: 4px 0 0;
+  color: var(--dvs-text-secondary);
+  font-size: 12px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.dvs-settings-card-body {
+  background: var(--dvs-surface-1);
+  padding: 20px;
+}
+.dvs-settings-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px;
+}
+
+/* ── FORM ROWS ────────────────────────────────────────────────── */
+.dvs-setting-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--dvs-border);
+  gap: var(--dvs-sp-4);
+}
+.dvs-setting-row:last-child {
+  border-bottom: none;
+}
+.dvs-setting-row-label {
+  flex: 0 0 200px;
+  max-width: 200px;
+  padding-top: 5px;
+}
+.dvs-setting-row-label label {
+  color: var(--dvs-text-primary);
+  font-weight: 500;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.dvs-setting-row-control {
+  flex: 1;
+  min-width: 0;
+}
+

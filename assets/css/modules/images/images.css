@@ -1,0 +1,3 @@
+/* Images tab */
+.davix-h2i-chip-fields-group { margin-top: var(--dvs-sp-4); display: grid; gap: var(--dvs-sp-3); }
+.dvx-table .davix-h2i-input, .dvx-table .davix-h2i-select { width: 100%; min-width: 80px; }

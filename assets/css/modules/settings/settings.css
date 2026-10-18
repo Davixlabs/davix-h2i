@@ -1,0 +1,28 @@
+/* Settings > Import / Export */
+.dvx-pick { display: flex; flex-direction: column; gap: 8px; }
+.dvx-pick__item {
+  display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; cursor: pointer;
+  background: var(--dvs-surface-2); border: 1px solid var(--dvs-border); border-radius: var(--dvs-radius-md);
+  transition: border-color var(--dvs-ease), background var(--dvs-ease);
+}
+.dvx-pick__item:hover { border-color: var(--dvs-border-blue); }
+.dvx-pick__item:has(input:checked) { border-color: var(--dvs-border-blue); background: var(--dvs-info-soft); }
+.dvx-pick__item input { margin-top: 3px; flex: 0 0 auto; }
+.dvx-pick__text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.dvx-pick__text strong { color: var(--dvs-text-heading); font-size: var(--dvs-text-base); }
+.dvx-pick__text small { color: var(--dvs-text-secondary); font-size: var(--dvs-text-sm); }
+
+.dvx-drop {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center;
+  padding: 28px 20px; margin-bottom: 14px; cursor: pointer;
+  border: 2px dashed var(--dvs-border-strong); border-radius: var(--dvs-radius-lg); background: var(--dvs-surface-2);
+  transition: border-color var(--dvs-ease), background var(--dvs-ease);
+}
+.dvx-drop:hover, .dvx-drop.is-over { border-color: var(--dvs-blue); background: var(--dvs-info-soft); }
+.dvx-drop.has-file { border-style: solid; border-color: var(--dvs-border-blue); }
+.dvx-drop__icon { font-size: 34px; width: 34px; height: 34px; color: var(--dvs-blue); }
+.dvx-drop strong { color: var(--dvs-text-heading); font-size: var(--dvs-text-md); word-break: break-all; }
+.dvx-drop small { color: var(--dvs-text-secondary); }
+.dvx-drop + .dvx-pick, .dvx-pick + .dvx-callout { margin-top: 0; }
+.dvx-callout.is-warning + .dvx-toolbar, .dvx-pick + .dvx-callout { margin-top: 12px; }
+[data-st-export] .dashicons { margin-right: 4px; vertical-align: text-bottom; }
