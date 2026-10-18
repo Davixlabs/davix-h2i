@@ -1,0 +1,32 @@
+name: Checks
+
+# Every push and pull request: every PHP file compiles on the oldest and the newest supported PHP, and the architecture rules hold
+# (folder rules, module isolation, the agreed operations, every operation exists in the bundled SDK's contract).
+# Nothing is built or published from here (that is release.yml).
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4', '8.1', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, json, mbstring
+      - name: Every PHP file compiles
+        run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -n1 php -l > /dev/null
+      - name: Architecture rules
+        run: php bin/check-architecture.php

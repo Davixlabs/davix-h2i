@@ -1,0 +1,68 @@
+name: Release (build the install zip)
+
+# Runs when a GitHub release is published (tag like v2.0.0). It checks the plugin, builds the zip and attaches it to the release.
+# Nothing is published anywhere else: you download the zip from the release page and install it in WordPress by hand
+# (Plugins > Add New > Upload Plugin; WordPress offers "Replace current with uploaded" when an older version is installed).
+# "Run workflow" (manual) does everything except attaching the zip: a dry run that keeps the zip as a downloadable artifact.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: curl, json, mbstring
+      - name: The release tag, the plugin header, DAVIX_H2I_VERSION and the readme must agree
+        id: version
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          header="$(sed -n 's/^ \* Version: *//p' davix-h2i.php | head -n 1 | tr -d '\r ')"
+          const="$(sed -n "s/.*define( 'DAVIX_H2I_VERSION', '\([^']*\)' );.*/\1/p" davix-h2i.php | head -n 1)"
+          stable="$(sed -n 's/^Stable tag: *//p' readme.txt | head -n 1 | tr -d '\r ')"
+          echo "header=$header DAVIX_H2I_VERSION=$const readme=$stable"
+          test "$header" = "$const" && test "$header" = "$stable" || { echo "::error::The version must be the same in davix-h2i.php (header and DAVIX_H2I_VERSION) and in readme.txt (Stable tag)."; exit 1; }
+          if [ -n "$TAG" ]; then
+            echo "$TAG" | grep -Eq '^v[0-9]+\.[0-9]+\.[0-9]+$' || { echo "::error::The release tag must look like v2.0.0 (got '$TAG')"; exit 1; }
+            test "${TAG#v}" = "$header" || { echo "::error::The tag is $TAG but the plugin says $header. Change the version, then publish the release again."; exit 1; }
+          fi
+          echo "version=$header" >> "$GITHUB_OUTPUT"
+      - name: Every PHP file compiles on PHP 7.4
+        run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -n1 php -l > /dev/null
+      - name: Architecture rules
+        run: php bin/check-architecture.php
+      - name: The server address is the live one
+        run: |
+          if grep -nE "define\( 'DAVIX_H2I_SERVER_URL', '(http://|https://)?(localhost|127\.0\.0\.1|host\.docker\.internal)" davix-h2i.php; then
+            echo "::error::davix-h2i.php still points at a local server."; exit 1
+          fi
+      - name: Build the zip
+        env:
+          V: ${{ steps.version.outputs.version }}
+        run: |
+          mkdir -p out build/davix-h2i
+          rsync -a --exclude '.git' --exclude '.github' --exclude 'tests' --exclude 'bin' --exclude '.gitignore' --exclude '.gitattributes' ./ build/davix-h2i/
+          (cd build && zip -qr "../out/davix-h2i-$V.zip" davix-h2i)
+          (cd out && sha256sum "davix-h2i-$V.zip" > "davix-h2i-$V.zip.sha256")
+          unzip -l "out/davix-h2i-$V.zip" | tail -n 3
+      - name: Attach the zip to the release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: gh release upload "$TAG" out/* --clobber
+      - name: Keep the zip of a dry run
+        if: github.event_name != 'release'
+        uses: actions/upload-artifact@v4
+        with:
+          name: davix-h2i-zip
+          path: out/*
