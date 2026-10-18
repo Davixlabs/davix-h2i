@@ -3,6 +3,34 @@
 // $x = \Davix\H2I\Enums\ImageFormat::WEBP;  \Davix\H2I\Enums\ImageFormat::values() === ["jpeg", ...]
 namespace Davix\H2I\Enums;
 
+final class AccountActivityType
+{
+    const ALL = 'all';
+    const SIGNIN = 'signin';
+    const KEYS = 'keys';
+    const PLAN = 'plan';
+    const PROFILE = 'profile';
+    const PRIVACY = 'privacy';
+
+    /** @return array<int,string|int> */
+    public static function values()
+    {
+        return ['all', 'signin', 'keys', 'plan', 'profile', 'privacy'];
+    }
+}
+
+final class AccountPrivacyRequestType
+{
+    const EXPORT = 'export';
+    const ERASE = 'erase';
+
+    /** @return array<int,string|int> */
+    public static function values()
+    {
+        return ['export', 'erase'];
+    }
+}
+
 final class AiAnswerStyle
 {
     const CONCISE = 'concise';
@@ -498,6 +526,19 @@ final class Align
     public static function values()
     {
         return ['left', 'center', 'right'];
+    }
+}
+
+final class Clean
+{
+    const ALL = 'all';
+    const LOCATION = 'location';
+    const PERSONAL = 'personal';
+
+    /** @return array<int,string|int> */
+    public static function values()
+    {
+        return ['all', 'location', 'personal'];
     }
 }
 
@@ -1089,19 +1130,6 @@ final class ImagesMetadata
     }
 }
 
-final class ImagesMetadataEditMode
-{
-    const MERGE = 'merge';
-    const REPLACE = 'replace';
-    const STRIP = 'strip';
-
-    /** @return array<int,string|int> */
-    public static function values()
-    {
-        return ['merge', 'replace', 'strip'];
-    }
-}
-
 final class ImagesOp
 {
     const AUTOORIENT = 'autoOrient';
@@ -1379,6 +1407,21 @@ final class MetaStatus
     public static function values()
     {
         return ['supported', 'planned', 'all'];
+    }
+}
+
+final class Mode
+{
+    const READ = 'read';
+    const MERGE = 'merge';
+    const REPLACE = 'replace';
+    const STRIP = 'strip';
+    const KEEP = 'keep';
+
+    /** @return array<int,string|int> */
+    public static function values()
+    {
+        return ['read', 'merge', 'replace', 'strip', 'keep'];
     }
 }
 

@@ -1,7 +1,7 @@
 <?php
 // GENERATED from the Davix H2I API contract 3.0.0. Do not edit.
 // Every error code the API can return (error.code), for comparisons such as $e->errorCode === ErrorCodes::RATE_LIMIT_EXCEEDED.
-namespace DavixH2I;
+namespace Davix\H2I;
 
 final class ErrorCodes
 {
@@ -64,6 +64,7 @@ final class ErrorCodes
     const MISSING_FIELD = 'missing_field';
     const MONTHLY_QUOTA_EXCEEDED = 'monthly_quota_exceeded';
     const NOT_FOUND = 'not_found';
+    const NOT_LINKED = 'not_linked';
     const PDF_PAGE_LIMIT_EXCEEDED = 'pdf_page_limit_exceeded';
     const PDF_TOOL_FAILED = 'pdf_tool_failed';
     const PLAN_QUOTA_NOT_CONFIGURED = 'plan_quota_not_configured';
@@ -72,6 +73,7 @@ final class ErrorCodes
     const RATE_LIMIT_STORE_UNAVAILABLE = 'rate_limit_store_unavailable';
     const RATE_LIMIT_UNAVAILABLE = 'rate_limit_unavailable';
     const RENDER_SIZE_EXCEEDED = 'render_size_exceeded';
+    const REQUEST_OPEN = 'request_open';
     const REVOKE_FAILED = 'revoke_failed';
     const ROTATE_FAILED = 'rotate_failed';
     const SERVER_BUSY = 'server_busy';
@@ -82,10 +84,11 @@ final class ErrorCodes
     const UNSUPPORTED_MEDIA_TYPE = 'unsupported_media_type';
     const URL_BLOCKED = 'url_blocked';
     const URL_FETCH_FAILED = 'url_fetch_failed';
+    const WORDPRESS_UNAVAILABLE = 'wordpress_unavailable';
 
     /** @return string[] */
     public static function all()
     {
-        return ['ai_configuration_error', 'ai_feature_unavailable', 'ai_generation_failed', 'ai_input_invalid', 'ai_input_too_large', 'ai_model_incompatible', 'ai_model_not_found', 'ai_output_invalid', 'ai_parameter_unsupported', 'ai_processing_failed', 'ai_provider_unavailable', 'ai_quota_exceeded', 'ai_rate_limited', 'ai_security_rejected', 'ai_timeout', 'api_key_location_not_allowed', 'async_limit_reached', 'async_not_allowed', 'async_requires_customer_key', 'certificate_limit_reached', 'certificates_unavailable', 'data_conversion_failed', 'demo_busy', 'demo_forbidden', 'demo_limit_reached', 'demo_not_available', 'demo_unavailable', 'dependency_unavailable', 'dimension_exceeded', 'duplicate_certificate_name', 'duplicate_preset_name', 'duplicate_template_name', 'endpoint_api_disabled', 'endpoint_disabled', 'endpoint_not_allowed', 'expired', 'file_too_large', 'font_unavailable', 'forbidden', 'format_not_allowed', 'html_render_failed', 'html_too_large', 'idempotency_key_conflict', 'image_processing_failed', 'internal_error', 'invalid_api_key', 'invalid_idempotency_key', 'invalid_parameter', 'invalid_signature', 'invalid_upload', 'job_not_cancellable', 'job_not_found', 'key_expired', 'key_limit_reached', 'key_not_found', 'key_quota_exceeded', 'missing_field', 'monthly_quota_exceeded', 'not_found', 'pdf_page_limit_exceeded', 'pdf_tool_failed', 'plan_quota_not_configured', 'plan_resolution_failed', 'rate_limit_exceeded', 'rate_limit_store_unavailable', 'rate_limit_unavailable', 'render_size_exceeded', 'revoke_failed', 'rotate_failed', 'server_busy', 'timeout', 'too_many_files', 'total_upload_exceeded', 'unauthorized', 'unsupported_media_type', 'url_blocked', 'url_fetch_failed'];
+        return ['ai_configuration_error', 'ai_feature_unavailable', 'ai_generation_failed', 'ai_input_invalid', 'ai_input_too_large', 'ai_model_incompatible', 'ai_model_not_found', 'ai_output_invalid', 'ai_parameter_unsupported', 'ai_processing_failed', 'ai_provider_unavailable', 'ai_quota_exceeded', 'ai_rate_limited', 'ai_security_rejected', 'ai_timeout', 'api_key_location_not_allowed', 'async_limit_reached', 'async_not_allowed', 'async_requires_customer_key', 'certificate_limit_reached', 'certificates_unavailable', 'data_conversion_failed', 'demo_busy', 'demo_forbidden', 'demo_limit_reached', 'demo_not_available', 'demo_unavailable', 'dependency_unavailable', 'dimension_exceeded', 'duplicate_certificate_name', 'duplicate_preset_name', 'duplicate_template_name', 'endpoint_api_disabled', 'endpoint_disabled', 'endpoint_not_allowed', 'expired', 'file_too_large', 'font_unavailable', 'forbidden', 'format_not_allowed', 'html_render_failed', 'html_too_large', 'idempotency_key_conflict', 'image_processing_failed', 'internal_error', 'invalid_api_key', 'invalid_idempotency_key', 'invalid_parameter', 'invalid_signature', 'invalid_upload', 'job_not_cancellable', 'job_not_found', 'key_expired', 'key_limit_reached', 'key_not_found', 'key_quota_exceeded', 'missing_field', 'monthly_quota_exceeded', 'not_found', 'not_linked', 'pdf_page_limit_exceeded', 'pdf_tool_failed', 'plan_quota_not_configured', 'plan_resolution_failed', 'rate_limit_exceeded', 'rate_limit_store_unavailable', 'rate_limit_unavailable', 'render_size_exceeded', 'request_open', 'revoke_failed', 'rotate_failed', 'server_busy', 'timeout', 'too_many_files', 'total_upload_exceeded', 'unauthorized', 'unsupported_media_type', 'url_blocked', 'url_fetch_failed', 'wordpress_unavailable'];
     }
 }

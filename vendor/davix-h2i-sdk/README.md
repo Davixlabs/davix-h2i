@@ -37,3 +37,6 @@ echo $res->requestId;
 * **Live slices**: `$h2i->contractEndpoint($id)`, `contractField($id, $name)`, `contractEnum($name)`, `contractError($code)`, `contractCategories()` and `$h2i->capabilities()->section('pdfs')` / `->feature('pdfs', 'ocr')` fetch just the piece you need.
 
 Tests: `php tests/run.php` (needs `node` for the shared mock server).
+
+## Naming your app in the History
+Every processing call takes an optional `app`, shown under each result in your History: `$h2i->images()->resize(['images' => '/path/photo.jpg', 'width' => 800, 'app' => 'My shop importer'])`.

@@ -141,7 +141,7 @@ class Client
 {
     use Generated\ClientNamespaces;
 
-    const SDK_VERSION = '1.2.0';
+    const SDK_VERSION = '1.3.0';
     const DEFAULT_BASE_URL = 'https://app.h2i.davixlabs.io';
     const SUPPORTED_SCHEMA_MAJOR = 1;
 

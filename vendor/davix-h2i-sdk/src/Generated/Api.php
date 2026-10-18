@@ -17,6 +17,33 @@ final class ApiAccount
     }
 
     /**
+     * GET /v1/account/activity -- Everything that happened on the customer account, newest first: sign-ins (device, app, address), sign-outs, API key changes, profile changes, privacy requests.
+     *
+     * @param-field type string one of all|signin|keys|plan|profile|privacy
+     * @param-field limit integer min 1 max 100
+     * @param-field before integer min 1
+     * @param array $params Request parameters keyed by wire name (see $client->schema('account.activity')).
+     * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
+     * @return Response
+     */
+    public function activity(array $params = [], array $options = [])
+    {
+        return $this->client->call('account.activity', $params, $options);
+    }
+
+    /**
+     * GET /v1/account/billing -- The customer's billing history and the plans they can move to, read from WordPress (Paid Memberships Pro) with the exact pages to land on.
+     *
+     * @param array $params Request parameters keyed by wire name (see $client->schema('account.billing')).
+     * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
+     * @return Response
+     */
+    public function billing(array $params = [], array $options = [])
+    {
+        return $this->client->call('account.billing', $params, $options);
+    }
+
+    /**
      * GET /v1/account -- The authenticated customer's own real profile (Customer Portal, NEW): name/email/status/creation date from the customers table.
      *
      * @param array $params Request parameters keyed by wire name (see $client->schema('account')).
@@ -26,6 +53,31 @@ final class ApiAccount
     public function get(array $params = [], array $options = [])
     {
         return $this->client->call('account', $params, $options);
+    }
+
+    /**
+     * GET /v1/account/privacy -- The customer's open and past WordPress privacy requests (download my data, delete my account).
+     *
+     * @param array $params Request parameters keyed by wire name (see $client->schema('account.privacy')).
+     * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
+     * @return Response
+     */
+    public function privacy(array $params = [], array $options = [])
+    {
+        return $this->client->call('account.privacy', $params, $options);
+    }
+
+    /**
+     * POST /v1/account/privacy -- Open a WordPress privacy request: download my data, or delete my account. WordPress emails a confirmation link, then an administrator approves it.
+     *
+     * @param-field type (required) string one of export|erase
+     * @param array $params Request parameters keyed by wire name (see $client->schema('account.privacy.request')).
+     * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
+     * @return Response
+     */
+    public function requestPrivacy(array $params = [], array $options = [])
+    {
+        return $this->client->call('account.privacy.request', $params, $options);
     }
 
 }
@@ -142,6 +194,7 @@ final class ApiAi
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field source_url string
@@ -983,6 +1036,7 @@ final class ApiAiEnhancement
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field source_url string
@@ -1010,6 +1064,7 @@ final class ApiAiEnhancement
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field source_url string
@@ -1037,6 +1092,7 @@ final class ApiAiEnhancement
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field source_url string
@@ -1064,6 +1120,7 @@ final class ApiAiEnhancement
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field source_url string
@@ -1091,6 +1148,7 @@ final class ApiAiEnhancement
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field source_url string
@@ -1119,6 +1177,7 @@ final class ApiAiEnhancement
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field source_url string
@@ -1402,6 +1461,7 @@ final class ApiAiGeneration
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field source_url string
@@ -1432,6 +1492,7 @@ final class ApiAiGeneration
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field source_url string
@@ -1464,6 +1525,7 @@ final class ApiAiGeneration
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field source_url string
@@ -1495,6 +1557,7 @@ final class ApiAiGeneration
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field source_url string
@@ -1529,6 +1592,7 @@ final class ApiAiGeneration
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field async boolean
@@ -1559,6 +1623,7 @@ final class ApiAiGeneration
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field source_url string
@@ -1591,6 +1656,7 @@ final class ApiAiGeneration
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field source_url string
@@ -1622,6 +1688,7 @@ final class ApiAiGeneration
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field async boolean
@@ -1652,6 +1719,7 @@ final class ApiAiGeneration
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field async boolean
@@ -1681,6 +1749,7 @@ final class ApiAiGeneration
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field seed integer min 0 max 2147483647
      * @param-field app string
      * @param-field source_url string
@@ -2418,6 +2487,7 @@ final class ApiData
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('data.convert')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -2520,6 +2590,7 @@ final class ApiData
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('data.transform')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -2543,6 +2614,7 @@ final class ApiData
      * @param-field presetId string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('data.validate')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -2582,6 +2654,7 @@ final class ApiDocuments
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('documents.convert')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -2608,8 +2681,10 @@ final class ApiDocuments
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('documents.mail-merge')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -2618,6 +2693,34 @@ final class ApiDocuments
     public function mailMerge(array $params = [], array $options = [])
     {
         return $this->client->call('documents.mail-merge', $params, $options);
+    }
+
+    /**
+     * POST /v1/documents/metadata -- Read, edit or remove the metadata of Word, Excel, PowerPoint and OpenDocument files
+     *
+     * @param-field file (required) file
+     * @param-field mode string one of read|merge|replace|strip|keep
+     * @param-field clean string one of all|location|personal
+     * @param-field remove array
+     * @param-field remove_groups array
+     * @param-field set object
+     * @param-field validate_only boolean
+     * @param-field presetId string
+     * @param-field response string one of url|binary|base64
+     * @param-field filename string
+     * @param-field filename_template string
+     * @param-field output_bundle string one of zip
+     * @param-field app string
+     * @param-field source_url string
+     * @param-field source_urls array
+     * @param-field async boolean
+     * @param array $params Request parameters keyed by wire name (see $client->schema('documents.metadata')).
+     * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
+     * @return Response
+     */
+    public function metadata(array $params = [], array $options = [])
+    {
+        return $this->client->call('documents.metadata', $params, $options);
     }
 
     /**
@@ -2634,8 +2737,10 @@ final class ApiDocuments
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('documents.preview')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -2658,8 +2763,10 @@ final class ApiDocuments
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('documents.text')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -2694,6 +2801,20 @@ final class ApiFiles
     public function delete(array $params = [], array $options = [])
     {
         return $this->client->call('files.{id}.delete', $params, $options);
+    }
+
+    /**
+     * POST /v1/files/fetch-url -- Fetch a public web address and return the file
+     *
+     * @param-field url (required) string
+     * @param-field operation (required) string
+     * @param array $params Request parameters keyed by wire name (see $client->schema('files.fetch-url')).
+     * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
+     * @return Response
+     */
+    public function fetchUrl(array $params = [], array $options = [])
+    {
+        return $this->client->call('files.fetch-url', $params, $options);
     }
 
     /**
@@ -2817,6 +2938,7 @@ final class ApiImages
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.auto-optimize')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3001,6 +3123,7 @@ final class ApiImages
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.convert')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3021,6 +3144,7 @@ final class ApiImages
      * @param-field presetId string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.decode-codes')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3054,6 +3178,7 @@ final class ApiImages
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.favicon')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3078,6 +3203,7 @@ final class ApiImages
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.frames')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3143,6 +3269,7 @@ final class ApiImages
      * @param-field presetId string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.inspect')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3154,16 +3281,25 @@ final class ApiImages
     }
 
     /**
-     * POST /v1/images/metadata -- Read image metadata (EXIF/ICC/dimensions)
+     * POST /v1/images/metadata -- Read, edit or remove the metadata of images (EXIF, GPS, IPTC, XMP, maker notes ...)
      *
      * @param-field images (required) file
+     * @param-field mode string one of read|merge|replace|strip|keep
+     * @param-field clean string one of all|location|personal
+     * @param-field remove array
+     * @param-field remove_groups array
+     * @param-field set object
      * @param-field includeRawExif boolean
      * @param-field normalizeOrientation boolean
-     * @param-field stripGps boolean
      * @param-field validate_only boolean
      * @param-field presetId string
+     * @param-field response string one of url|binary|base64
+     * @param-field filename string
+     * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.metadata')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3172,37 +3308,6 @@ final class ApiImages
     public function metadata(array $params = [], array $options = [])
     {
         return $this->client->call('images.metadata', $params, $options);
-    }
-
-    /**
-     * POST /v1/images/metadata/edit -- Edit an image's metadata without touching its pixels
-     *
-     * @param-field images (required) file
-     * @param-field mode string one of merge|replace|strip
-     * @param-field strip_gps boolean
-     * @param-field author string
-     * @param-field copyright string
-     * @param-field description string
-     * @param-field gps_latitude number min -90 max 90
-     * @param-field gps_longitude number min -180 max 180
-     * @param-field gps_altitude number min -1000 max 100000
-     * @param-field exif object
-     * @param-field output_bundle string one of zip
-     * @param-field validate_only boolean
-     * @param-field presetId string
-     * @param-field response string one of url|binary|base64
-     * @param-field filename string
-     * @param-field filename_template string
-     * @param-field app string
-     * @param-field source_url string
-     * @param-field async boolean
-     * @param array $params Request parameters keyed by wire name (see $client->schema('images.metadata-edit')).
-     * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
-     * @return Response
-     */
-    public function metadataEdit(array $params = [], array $options = [])
-    {
-        return $this->client->call('images.metadata-edit', $params, $options);
     }
 
     /**
@@ -3224,6 +3329,7 @@ final class ApiImages
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.ocr')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3263,6 +3369,7 @@ final class ApiImages
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.optimize')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3292,6 +3399,7 @@ final class ApiImages
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.pdf')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3316,6 +3424,7 @@ final class ApiImages
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.pipeline')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3343,8 +3452,10 @@ final class ApiImages
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.qr')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3380,6 +3491,7 @@ final class ApiImages
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.remove-background')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3428,6 +3540,7 @@ final class ApiImages
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.resize')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3467,6 +3580,7 @@ final class ApiImages
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.slice')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3618,6 +3732,7 @@ final class ApiImages
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.transform')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3642,6 +3757,7 @@ final class ApiImages
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.variants')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3669,8 +3785,10 @@ final class ApiImages
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.vectorize')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3710,6 +3828,7 @@ final class ApiImages
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('images.watermark')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -3793,6 +3912,7 @@ final class ApiKeys
      * @param-field expires_at string
      * @param-field expires_in_days integer min 1 max 3650
      * @param-field quota_limit integer min 1
+     * @param-field ai_limit number min 0
      * @param array $params Request parameters keyed by wire name (see $client->schema('keys.post')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
      * @return Response
@@ -4224,6 +4344,19 @@ final class ApiNotifications
     }
 
     /**
+     * DELETE /v1/notifications/{id} -- Delete one of the customer's notifications
+     *
+     * @param-field id (required) integer min 1
+     * @param array $params Request parameters keyed by wire name (see $client->schema('notifications.{id}.delete')).
+     * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
+     * @return Response
+     */
+    public function delete(array $params = [], array $options = [])
+    {
+        return $this->client->call('notifications.{id}.delete', $params, $options);
+    }
+
+    /**
      * GET /v1/notifications/preferences -- Which notifications you receive
      *
      * @param array $params Request parameters keyed by wire name (see $client->schema('notifications.preferences')).
@@ -4320,6 +4453,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.attachments')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4347,6 +4481,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.bookmarks')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4408,6 +4543,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.cover')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4433,6 +4569,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.extract')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4463,6 +4600,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.forms')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4500,6 +4638,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.headers-footers')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4524,6 +4663,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.images')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4544,6 +4684,7 @@ final class ApiPdfs
      * @param-field presetId string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.inspect')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4578,6 +4719,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.layout')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4603,6 +4745,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.manipulate')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4639,27 +4782,23 @@ final class ApiPdfs
     }
 
     /**
-     * POST /v1/pdfs/metadata -- Read or write PDF document metadata
+     * POST /v1/pdfs/metadata -- Read, edit or remove PDF metadata (document information, XMP ...)
      *
      * @param-field file (required) file
-     * @param-field title string
-     * @param-field author string
-     * @param-field subject string
-     * @param-field keywords string
-     * @param-field creator string
-     * @param-field producer string
-     * @param-field creationDate string
-     * @param-field modificationDate string
-     * @param-field cleanAllMetadata boolean
-     * @param-field customProperties object
-     * @param-field output_bundle string one of zip
+     * @param-field mode string one of read|merge|replace|strip|keep
+     * @param-field clean string one of all|location|personal
+     * @param-field remove array
+     * @param-field remove_groups array
+     * @param-field set object
      * @param-field validate_only boolean
      * @param-field presetId string
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.metadata')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4693,6 +4832,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.ocr')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4725,6 +4865,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.optimize')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4755,6 +4896,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.redact')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4783,6 +4925,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.security')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4812,6 +4955,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.sign')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4840,6 +4984,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.split')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4864,8 +5009,10 @@ final class ApiPdfs
      * @param-field response string one of url|binary|base64
      * @param-field filename string
      * @param-field filename_template string
+     * @param-field output_bundle string one of zip
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.tables')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4887,6 +5034,7 @@ final class ApiPdfs
      * @param-field presetId string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.text')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4914,6 +5062,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.to-images')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4932,6 +5081,7 @@ final class ApiPdfs
      * @param-field presetId string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.verify-signature')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -4969,6 +5119,7 @@ final class ApiPdfs
      * @param-field filename_template string
      * @param-field app string
      * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('pdfs.watermark')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -5104,6 +5255,7 @@ final class ApiRender
      *
      * @param-field type string one of bar|line|area|scatter|pie|donut|stacked-bar|grouped-bar|histogram
      * @param-field data array
+     * @param-field data_file file
      * @param-field x string
      * @param-field y string
      * @param-field color string
@@ -5122,6 +5274,8 @@ final class ApiRender
      * @param-field filename string
      * @param-field filename_template string
      * @param-field app string
+     * @param-field source_url string
+     * @param-field source_urls array
      * @param-field async boolean
      * @param array $params Request parameters keyed by wire name (see $client->schema('render.chart')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -5402,6 +5556,7 @@ final class ApiUsage
      * GET /v1/usage/breakdown -- Usage activity behind the usage page: per day, per operation, why requests failed, per key, AI cost and jobs, plus what the plan includes
      *
      * @param-field range string one of period|7d|30d|month
+     * @param-field key_id string
      * @param-field key string
      * @param array $params Request parameters keyed by wire name (see $client->schema('usage.breakdown')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
@@ -5413,11 +5568,15 @@ final class ApiUsage
     }
 
     /**
-     * GET /v1/usage/calls -- Recent calls of one operation (time, status, request id, key, size, and the reason for a failure)
+     * GET /v1/usage/calls -- Request log of your keys (time, status, request id, key, operation, size, and the reason for a failure), optionally of one operation
      *
-     * @param-field operation (required) string
+     * @param-field operation string
+     * @param-field key_id string
      * @param-field key string
-     * @param-field limit integer min 1 max 50
+     * @param-field limit integer min 1 max 200
+     * @param-field range string one of period|7d|30d|month
+     * @param-field before integer min 1
+     * @param-field page integer min 1
      * @param array $params Request parameters keyed by wire name (see $client->schema('usage.calls')).
      * @param array $options idempotencyKey, headers, timeoutMs, maxRetries, retry, validate, strict
      * @return Response
