@@ -81,14 +81,23 @@ final class Operations {
             'description' => __( 'See EXIF, size, color profile and more.', 'davix-h2i' ),
             'store'       => 'none',
             'result'      => 'json',
-            'fields'      => array( 'includeRawExif', 'stripGps' ),
+            'fields'      => array( 'includeRawExif', 'normalizeOrientation' ),
         ) ) );
         $c->add_operation( array_merge( $common, array(
             'id'          => 'images.metadata-edit',
+            'endpoint'    => 'images.metadata',
+            'translate'   => array( __CLASS__, 'metadata_edit_params' ),
             'label'       => __( 'Edit metadata', 'davix-h2i' ),
             'description' => __( 'Remove location data, set author and copyright.', 'davix-h2i' ),
             'store'       => 'replace',
-            'fields'      => array( 'mode', 'strip_gps', 'author', 'copyright', 'description' ),
+            'defaults'    => array( 'mode' => 'merge' ),
+            'fields'      => array(
+                array( 'name' => 'mode', 'type' => 'select', 'label' => __( 'What to do', 'davix-h2i' ), 'options' => array( 'merge' => __( 'Change the listed fields, keep the rest', 'davix-h2i' ), 'replace' => __( 'Remove everything, then write the listed fields', 'davix-h2i' ), 'strip' => __( 'Remove all metadata', 'davix-h2i' ) ), 'default' => 'merge' ),
+                array( 'name' => 'strip_gps', 'type' => 'switch', 'label' => __( 'Remove location (GPS)', 'davix-h2i' ), 'default' => false ),
+                array( 'name' => 'author', 'type' => 'text', 'label' => __( 'Author', 'davix-h2i' ) ),
+                array( 'name' => 'copyright', 'type' => 'text', 'label' => __( 'Copyright', 'davix-h2i' ) ),
+                array( 'name' => 'description', 'type' => 'text', 'label' => __( 'Description', 'davix-h2i' ) ),
+            ),
         ) ) );
         $c->add_operation( array_merge( $common, array(
             'id'          => 'images.variants',
@@ -100,6 +109,33 @@ final class Operations {
             ),
         ) ) );
         unset( $out );
+    }
+
+    /**
+     * "Edit metadata" is the service's images.metadata in edit mode: the plain choices of the form become its parameters.
+     * Remove location -> clean=location; author, copyright and description -> the EXIF tags that hold them.
+     */
+    public static function metadata_edit_params( array $params ) {
+        $out = array( 'mode' => isset( $params['mode'] ) && '' !== $params['mode'] ? (string) $params['mode'] : 'merge' );
+        foreach ( $params as $key => $value ) {
+            if ( ! in_array( $key, array( 'mode', 'strip_gps', 'author', 'copyright', 'description' ), true ) ) {
+                $out[ $key ] = $value;
+            }
+        }
+        if ( ! empty( $params['strip_gps'] ) ) {
+            $out['clean'] = 'location';
+        }
+        $tags = array( 'author' => 'EXIF:Artist', 'copyright' => 'EXIF:Copyright', 'description' => 'EXIF:ImageDescription' );
+        $set  = isset( $out['set'] ) && is_array( $out['set'] ) ? $out['set'] : array();
+        foreach ( $tags as $key => $tag ) {
+            if ( isset( $params[ $key ] ) && '' !== trim( (string) $params[ $key ] ) ) {
+                $set[ $tag ] = (string) $params[ $key ];
+            }
+        }
+        if ( $set ) {
+            $out['set'] = $set;
+        }
+        return $out;
     }
 
     /** The watermark's own options as separate fields (text, position, opacity, size of a logo ...), from the service's contract. */

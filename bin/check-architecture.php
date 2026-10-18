@@ -62,7 +62,9 @@ $ids      = array();
 foreach ( (array) ( $contract['endpoints'] ?? array() ) as $e ) {
     $ids[ $e['id'] ] = true;
 }
-$seen = array();
+// plugin operation => the service endpoint it calls (only where they differ)
+$aliases = array( 'images.metadata-edit' => 'images.metadata' );
+$seen    = array();
 foreach ( glob( $root . '/src/Modules/*', GLOB_ONLYDIR ) as $dir ) {
     $name = basename( $dir );
     if ( ! is_file( "$dir/module.php" ) ) {
@@ -74,7 +76,9 @@ foreach ( glob( $root . '/src/Modules/*', GLOB_ONLYDIR ) as $dir ) {
     }
     $manifest = include "$dir/module.php";
     foreach ( (array) $manifest['operations'] as $op ) {
-        if ( ! isset( $ids[ $op ] ) ) {
+        // an operation can be a friendlier face of another endpoint (see Definition 'endpoint'): its target must be in the contract
+        $target = isset( $aliases[ $op ] ) ? $aliases[ $op ] : $op;
+        if ( ! isset( $ids[ $target ] ) ) {
             $errors[] = "Module $name lists $op, which is not in the SDK contract";
         }
         if ( isset( $seen[ $op ] ) ) {

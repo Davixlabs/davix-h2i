@@ -39,9 +39,16 @@ final class Definition {
                 'surfaces'   => array( 'tab', 'drawer', 'cli' ),
                 'icon'       => '',
                 'hidden'     => false,
+                // The service endpoint this operation calls. It is the operation's own id unless the operation is a friendlier face of another
+                // endpoint ("Edit metadata" is images.metadata in edit mode); `translate` (a callable) turns the form's values into that endpoint's parameters.
+                'endpoint'   => '',
+                'translate'  => null,
             ),
             $d
         );
+        if ( '' === $d['endpoint'] ) {
+            $d['endpoint'] = $d['id'];
+        }
         if ( '' === $d['label'] ) {
             $d['label'] = Contract::humanize( substr( $d['id'], (int) strrpos( $d['id'], '.' ) + 1 ) );
         }
@@ -58,7 +65,7 @@ final class Definition {
         foreach ( $def['fields'] as $item ) {
             $name     = is_array( $item ) ? $item['name'] : $item;
             $override = is_array( $item ) ? $item : array();
-            $spec     = Contract::field( $def['id'], $name );
+            $spec     = Contract::field( $def['endpoint'], $name );
             if ( ! $spec ) {
                 $spec = array(
                     'name'     => $name,
@@ -102,7 +109,7 @@ final class Definition {
         $extra = isset( $def['extra'] ) ? array_keys( (array) $def['extra'] ) : array();
         $have  = array_merge( $have, isset( $def['skip'] ) ? (array) $def['skip'] : array() );
         $out   = array();
-        foreach ( Contract::request_fields( $def['id'] ) as $field ) {
+        foreach ( Contract::request_fields( $def['endpoint'] ) as $field ) {
             $name = $field['name'];
             $type = isset( $field['type'] ) ? $field['type'] : 'string';
             if ( 'file' === $type || in_array( $name, self::SYSTEM_FIELDS, true ) || in_array( $name, $have, true ) || in_array( $name, $extra, true ) || '_url' === substr( $name, -4 ) ) {

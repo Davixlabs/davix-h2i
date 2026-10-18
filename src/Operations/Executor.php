@@ -68,7 +68,7 @@ final class Executor {
             }
             Logger::info( 'call ' . $def['id'], array( 'object' => $req['object_id'], 'source' => $req['source'] ) );
             try {
-                $response = ClientFactory::make()->call( $def['id'], $params, $options );
+                $response = ClientFactory::make()->call( $def['endpoint'], $params, $options );
             } catch ( \Throwable $first ) {
                 $mapped = ErrorMapper::map( $first );
                 if ( empty( $params['async'] ) || ! in_array( $mapped['code'], array( 'async_not_allowed', 'async_limit_reached', 'async_requires_customer_key' ), true ) ) {
@@ -76,7 +76,7 @@ final class Executor {
                 }
                 // The plan does not allow a background job right now: run it directly instead.
                 unset( $params['async'] );
-                $response = ClientFactory::make()->call( $def['id'], $params, $options );
+                $response = ClientFactory::make()->call( $def['endpoint'], $params, $options );
             }
         } catch ( \Throwable $e ) {
             $error = ErrorMapper::map( $e );
@@ -384,9 +384,12 @@ final class Executor {
     private static function build_params( array $def, array $req, array $files ) {
         $params = array_merge( $def['defaults'], (array) $req['params'] );
         $params = apply_filters( 'davix_h2i_operation_params', $params, $def['id'], $req );
+        if ( is_callable( $def['translate'] ) ) {
+            $params = (array) call_user_func( $def['translate'], $params );
+        }
         $clean  = array();
         // Every call says which app made it; the History of the account shows it next to the result.
-        if ( ! isset( $params['app'] ) && Contract::has_field( $def['id'], 'app' ) ) {
+        if ( ! isset( $params['app'] ) && Contract::has_field( $def['endpoint'], 'app' ) ) {
             $params['app'] = (string) apply_filters( 'davix_h2i_app_name', 'Davix H2I plugin' );
         }
         $csv = isset( $def['csv'] ) ? (array) $def['csv'] : array();
@@ -402,7 +405,7 @@ final class Executor {
         }
         foreach ( $files as $field => $list ) {
             $multi    = true;
-            $endpoint = Contract::endpoint( $def['id'] );
+            $endpoint = Contract::endpoint( $def['endpoint'] );
             if ( $endpoint ) {
                 foreach ( $endpoint['request']['fields'] as $f ) {
                     if ( $f['name'] === $field && isset( $f['file']['multiple'] ) ) {

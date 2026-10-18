@@ -101,12 +101,12 @@ function dvx_small_jpeg_bytes() {
 $ctx = Services::get( 'context' );
 dvx_ok( count( $ctx->operations() ) === 43, 'exactly 43 operations are registered (' . count( $ctx->operations() ) . ')' );
 foreach ( $ctx->operations() as $id => $def ) {
-    dvx_ok( Contract::has( $id ), "operation $id exists in the SDK contract" );
+    dvx_ok( Contract::has( $def['endpoint'] ), "operation $id (endpoint {$def['endpoint']}) exists in the SDK contract" );
     foreach ( \DavixWP\Operations\Definition::fields( $def ) as $spec ) {
         if ( 'file' === $spec['type'] ) {
             continue;
         }
-        dvx_ok( Contract::has_field( $id, $spec['name'] ) || 'p' === $spec['name'], "$id field {$spec['name']} exists in the contract" );
+        dvx_ok( Contract::has_field( $def['endpoint'], $spec['name'] ) || 'p' === $spec['name'] || is_callable( $def['translate'] ), "$id field {$spec['name']} exists in the contract" );
     }
     // Nothing the service supports is left out: every request field is a main option, a "More options" field, an extra file or one the plugin handles itself.
     $shown = array();
@@ -128,7 +128,7 @@ foreach ( $ctx->operations() as $id => $def ) {
     }
     dvx_ok( ! $left_out, "$id: every supported parameter can be set" . ( $left_out ? ' (missing: ' . implode( ', ', $left_out ) . ')' : '' ) );
     if ( ! empty( $def['file_field'] ) && 'none' !== $def['input'] ) {
-        dvx_ok( Contract::has_field( $id, $def['file_field'] ), "$id file field {$def['file_field']} exists" );
+        dvx_ok( Contract::has_field( $def['endpoint'], $def['file_field'] ), "$id file field {$def['file_field']} exists" );
     }
 }
 
