@@ -4,7 +4,7 @@ Tags: image optimization, media library, pdf, alt text, ai
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,7 +25,7 @@ Davix H2I for WordPress connects your site to your own Davix H2I account with yo
 * **Background jobs**, bulk runs with a cost estimate, and a debug log.
 * **WP-CLI**: `wp davix verify`, `wp davix optimize`, `wp davix queue`, and more.
 
-An API key from your Davix H2I Customer Portal is required.
+An API key from your Davix H2I Dashboard is required.
 
 == External Services ==
 
@@ -52,7 +52,7 @@ Optional: define `DAVIX_H2I_API_KEY` in wp-config.php so the key is not stored i
 == Frequently Asked Questions ==
 
 = Where do I get an API key? =
-In your Davix H2I Customer Portal under API keys.
+In your Davix H2I Dashboard under API keys.
 
 = Does it slow down uploads? =
 No. Uploads only add work to a background queue.
@@ -63,7 +63,14 @@ Yes. By default the original is kept as a backup. Open History and choose Restor
 = What does it cost? =
 Each action shows its cost in the units of your plan before you run it.
 
+= How do I update the plugin? =
+When a new version is out, the Plugins page shows "There is a new version of Davix H2I available. Update now". Click it. "Check for updates" next to Deactivate asks right away. You can also switch on automatic updates for it there.
+
 == Changelog ==
+
+= 2.1.0 =
+* New: updates. When a new version is published, WordPress shows "Update now" on the Plugins page, with the usual View details window and the automatic-updates switch. Each update is checked against its published checksum before it is installed.
+* Changed: the account wording now says Dashboard.
 
 = 2.0.0 =
 * Rebuilt from the ground up on the Davix H2I PHP SDK.

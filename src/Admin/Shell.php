@@ -260,7 +260,7 @@ final class Shell {
 
     private function connect_card() {
         echo '<div class="davix-h2i-tab-panel active">';
-        Ui::panel_open( __( 'Connect your Davix H2I account', 'davix-h2i' ), array( 'lead' => __( 'Add your API key to start. You can create one in your Customer Portal.', 'davix-h2i' ) ) );
+        Ui::panel_open( __( 'Connect your Davix H2I account', 'davix-h2i' ), array( 'lead' => __( 'Add your API key to start. You can create one in your Dashboard.', 'davix-h2i' ) ) );
         Ui::empty_state(
             __( 'This site is not connected yet.', 'davix-h2i' ),
             'dashicons-admin-network',

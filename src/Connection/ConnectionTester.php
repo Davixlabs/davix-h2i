@@ -43,7 +43,7 @@ final class ConnectionTester {
 
             if ( 'customer' !== $type ) {
                 $result['code']    = 'wrong_key_type';
-                $result['message'] = __( 'This plugin needs a customer API key from your Customer Portal.', 'davix-h2i' );
+                $result['message'] = __( 'This plugin needs a customer API key from your Dashboard.', 'davix-h2i' );
                 return $result;
             }
 

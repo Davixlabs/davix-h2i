@@ -3,7 +3,7 @@
 ## Connect
 
 1. Open **Davix H2I > Account**.
-2. Paste the API key from your Customer Portal, choose **Test Connection**, then **Save connection**.
+2. Paste the API key from your Dashboard, choose **Test Connection**, then **Save connection**.
 3. Optional: put `define( 'DAVIX_H2I_API_KEY', '...' );` in `wp-config.php` so the key never sits in the database.
 
 The key is stored encrypted, shown only as its last four characters, and never written to the log.
@@ -58,7 +58,7 @@ Uploads and bulk runs never wait for the service: they add rows to a queue that 
 
 ## History
 
-History lists what *this plugin* did: action, file, result, size change, who, when. Click a row to see the settings that were used in plain words, to open the file, or to **Restore original** when a backup exists. Actions made in Studio or with the API directly are never shown here (the Customer Portal History shows them, with the app that made each one). Export to CSV; set how long to keep it under Settings > Privacy & data.
+History lists what *this plugin* did: action, file, result, size change, who, when. Click a row to see the settings that were used in plain words, to open the file, or to **Restore original** when a backup exists. Actions made in Studio or with the API directly are never shown here (the Dashboard History shows them, with the app that made each one). Export to CSV; set how long to keep it under Settings > Privacy & data.
 
 ## Undo
 

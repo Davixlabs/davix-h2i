@@ -112,7 +112,7 @@ final class ErrorMapper {
             case 'invalid_api_key':
                 return __( 'The API key was not accepted. Check it in Account.', 'davix-h2i' );
             case 'key_expired':
-                return __( 'This API key has expired. Create a new one in your Customer Portal.', 'davix-h2i' );
+                return __( 'This API key has expired. Create a new one in your Dashboard.', 'davix-h2i' );
             case 'monthly_quota_exceeded':
                 return __( 'Your plan\'s allowance for this period is used up.', 'davix-h2i' );
             case 'endpoint_not_allowed':

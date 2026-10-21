@@ -20,7 +20,7 @@ final class ConnectionPage {
         Ui::panel_open(
             __( 'Connection', 'davix-h2i' ),
             array(
-                'lead' => __( 'Use the API key from your Customer Portal. This plugin works with your own account, so every action uses your plan.', 'davix-h2i' ),
+                'lead' => __( 'Use the API key from your Dashboard. This plugin works with your own account, so every action uses your plan.', 'davix-h2i' ),
             )
         );
 
@@ -54,7 +54,7 @@ final class ConnectionPage {
                     <?php elseif ( $has ) : ?>
                         <?php esc_html_e( 'A key is saved (shown masked). Leave blank to keep it, or paste a new key to replace it.', 'davix-h2i' ); ?>
                     <?php else : ?>
-                        <?php esc_html_e( 'Paste the key from your Customer Portal, test it, then save.', 'davix-h2i' ); ?>
+                        <?php esc_html_e( 'Paste the key from your Dashboard, test it, then save.', 'davix-h2i' ); ?>
                     <?php endif; ?>
                 </p>
                 </div>

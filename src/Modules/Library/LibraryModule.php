@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Presets and templates saved in the customer's Davix H2I account. The same ones the Customer Portal and Studio show: whatever is
+ * Presets and templates saved in the customer's Davix H2I account. The same ones the Dashboard and Studio show: whatever is
  * saved here appears there and the other way round. Presets are edited with the same option fields as the action itself.
  */
 final class LibraryModule extends Module {
@@ -173,7 +173,7 @@ final class LibraryModule extends Module {
                 $ops[] = array( 'id' => $id, 'label' => $def['label'], 'group' => isset( $def['group'] ) ? $def['group'] : '' );
             }
         }
-        Ui::panel_open( __( 'Presets', 'davix-h2i' ), array( 'lead' => __( 'Saved sets of options for an action. They live in your Davix H2I account, so the Customer Portal and Studio show the same presets.', 'davix-h2i' ) ) );
+        Ui::panel_open( __( 'Presets', 'davix-h2i' ), array( 'lead' => __( 'Saved sets of options for an action. They live in your Davix H2I account, so the Dashboard and Studio show the same presets.', 'davix-h2i' ) ) );
         echo '<div data-lb-root="presets" data-ops="' . esc_attr( wp_json_encode( $ops ) ) . '">';
         $this->toolbar( __( 'New preset', 'davix-h2i' ) );
         echo '<div class="dvx-table-wrap"><table class="dvx-table"><thead><tr><th>' . esc_html__( 'Name', 'davix-h2i' ) . '</th><th>' . esc_html__( 'Action', 'davix-h2i' ) . '</th><th>' . esc_html__( 'Updated', 'davix-h2i' ) . '</th></tr></thead><tbody data-lb-body><tr><td colspan="3"><div class="dvs-empty-state"><p>' . esc_html__( 'Loading…', 'davix-h2i' ) . '</p></div></td></tr></tbody></table></div>';
@@ -187,7 +187,7 @@ final class LibraryModule extends Module {
     }
 
     public function templates() {
-        Ui::panel_open( __( 'Templates', 'davix-h2i' ), array( 'lead' => __( 'HTML documents with {{variables}} that you render later. They live in your account, so the Customer Portal and Studio show the same templates.', 'davix-h2i' ) ) );
+        Ui::panel_open( __( 'Templates', 'davix-h2i' ), array( 'lead' => __( 'HTML documents with {{variables}} that you render later. They live in your account, so the Dashboard and Studio show the same templates.', 'davix-h2i' ) ) );
         echo '<div data-lb-root="templates">';
         $this->toolbar( __( 'New template', 'davix-h2i' ) );
         echo '<div class="dvx-table-wrap"><table class="dvx-table"><thead><tr><th>' . esc_html__( 'Name', 'davix-h2i' ) . '</th><th>' . esc_html__( 'Variables', 'davix-h2i' ) . '</th><th>' . esc_html__( 'Updated', 'davix-h2i' ) . '</th></tr></thead><tbody data-lb-body><tr><td colspan="3"><div class="dvs-empty-state"><p>' . esc_html__( 'Loading…', 'davix-h2i' ) . '</p></div></td></tr></tbody></table></div>';
