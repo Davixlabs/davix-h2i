@@ -3,11 +3,12 @@
  * Plugin Name: Davix H2I
  * Plugin URI: https://h2i.davixlabs.io/docs/wordpress-plugin/
  * Description: Use your Davix H2I account inside WordPress: optimize and edit images, make social cards, add alt text and SEO with AI, work with PDFs, and keep a history of everything it does.
- * Version: 2.0.0
+ * Version: 2.1.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Davix Labs
  * Author URI: https://davix.dev
+ * Update URI: https://github.com/Davixlabs/davix-h2i
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: davix-h2i
@@ -21,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'DAVIX_H2I_VERSION', '2.0.0' );
+define( 'DAVIX_H2I_VERSION', '2.1.0' );
 define( 'DAVIX_H2I_FILE', __FILE__ );
 define( 'DAVIX_H2I_DIR', plugin_dir_path( __FILE__ ) );
 define( 'DAVIX_H2I_URL', plugin_dir_url( __FILE__ ) );
@@ -64,6 +65,7 @@ register_deactivation_hook( DAVIX_H2I_FILE, array( '\DavixWP\Core\Installer', 'd
 add_action(
     'plugins_loaded',
     static function () {
+        \DavixWP\Updates\Updater::register(); // new versions are offered on the Plugins page (see src/Updates)
         \DavixWP\Core\Plugin::instance()->boot();
     }
 );

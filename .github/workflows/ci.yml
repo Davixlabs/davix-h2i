@@ -30,3 +30,5 @@ jobs:
         run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -n1 php -l > /dev/null
       - name: Architecture rules
         run: php bin/check-architecture.php
+      - name: Update code self-test
+        run: php tests/unit/test-updater.php

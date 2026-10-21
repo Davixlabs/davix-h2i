@@ -1,8 +1,9 @@
 name: Release (build the install zip)
 
-# Runs when a GitHub release is published (tag like v2.0.0). It checks the plugin, builds the zip and attaches it to the release.
-# Nothing is published anywhere else: you download the zip from the release page and install it in WordPress by hand
-# (Plugins > Add New > Upload Plugin; WordPress offers "Replace current with uploaded" when an older version is installed).
+# Runs when a GitHub release is published (tag like v2.1.0). It checks the plugin, tests it, builds the zip and its checksum and attaches both to the release.
+# The repository and its releases are public. A site that has the plugin installed finds the release by itself: WordPress shows "Update now" on the Plugins
+# page (src/Updates), and checks the zip against the published checksum before installing it. A new site can also download the zip from the release page
+# and install it by hand (Plugins > Add New > Upload Plugin; WordPress offers "Replace current with uploaded" when an older version is installed).
 # "Run workflow" (manual) does everything except attaching the zip: a dry run that keeps the zip as a downloadable artifact.
 on:
   release:
@@ -40,6 +41,8 @@ jobs:
         run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -n1 php -l > /dev/null
       - name: Architecture rules
         run: php bin/check-architecture.php
+      - name: Update code self-test
+        run: php tests/unit/test-updater.php
       - name: The server address is the live one
         run: |
           if grep -nE "define\( 'DAVIX_H2I_SERVER_URL', '(http://|https://)?(localhost|127\.0\.0\.1|host\.docker\.internal)" davix-h2i.php; then
@@ -54,6 +57,16 @@ jobs:
           (cd build && zip -qr "../out/davix-h2i-$V.zip" davix-h2i)
           (cd out && sha256sum "davix-h2i-$V.zip" > "davix-h2i-$V.zip.sha256")
           unzip -l "out/davix-h2i-$V.zip" | tail -n 3
+      - name: The zip has the right shape (the folder WordPress expects, this version, the update address, no tests)
+        env:
+          V: ${{ steps.version.outputs.version }}
+        run: |
+          z="out/davix-h2i-$V.zip"
+          unzip -p "$z" davix-h2i/davix-h2i.php | tr -d '\r' | grep -q "^ \* Version: $V\$" || { echo "::error::The zip does not contain davix-h2i/davix-h2i.php at version $V."; exit 1; }
+          unzip -p "$z" davix-h2i/davix-h2i.php | tr -d '\r' | grep -q "^ \* Update URI: https://github.com/${{ github.repository }}\$" || { echo "::error::The plugin header must carry Update URI: https://github.com/${{ github.repository }}"; exit 1; }
+          unzip -l "$z" | grep -qE "davix-h2i/(tests|bin|\.github)/" && { echo "::error::The zip contains development folders."; exit 1; }
+          unzip -l "$z" | grep -q "davix-h2i/src/Updates/Updater.php" || { echo "::error::The zip does not contain the updater."; exit 1; }
+          (cd out && sha256sum -c "davix-h2i-$V.zip.sha256")
       - name: Attach the zip to the release
         if: github.event_name == 'release'
         env:
