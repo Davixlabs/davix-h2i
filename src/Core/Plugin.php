@@ -48,9 +48,9 @@ final class Plugin {
         AutoRules::register_settings();
         AutoRules::hooks();
 
-        $loader = new ModuleLoader( DAVIX_H2I_DIR . 'src/Modules' );
-        $loader->load( $this->context );
-
+        // The modules write translated labels while they register, and WordPress wants translations only from init on (earlier, WP 6.7+ reports
+        // "translation loading triggered too early", and on a site that shows notices the output breaks the sign-in cookie). So they load first thing at init.
+        add_action( 'init', array( $this, 'load_modules' ), 0 );
         add_action( 'init', array( $this, 'init' ) );
         add_filter( 'cron_schedules', array( $this, 'cron_schedules' ) ); // phpcs:ignore WordPress.WP.CronInterval
         add_action( 'davix_h2i_run_queue', array( $this, 'run_queue' ) );
@@ -63,6 +63,12 @@ final class Plugin {
         $assets = new Assets( $this->context );
         $assets->hooks();
         ( new \DavixWP\Admin\Drawer( $this->context ) )->hooks();
+    }
+
+    /** Loads every module (init, priority 0). Their commands for WP-CLI are added here too, once they are known. */
+    public function load_modules() {
+        $loader = new ModuleLoader( DAVIX_H2I_DIR . 'src/Modules' );
+        $loader->load( $this->context );
 
         if ( defined( 'WP_CLI' ) && WP_CLI ) {
             \WP_CLI::add_command( 'davix', '\DavixWP\Cli\Commands' );
